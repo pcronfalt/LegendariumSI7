@@ -1,0 +1,157 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} MJ {% endblock %}
+{% block contenu %}
+    {% if form.mj == session.pseudoJdr %}
+        {% if form.age >= 16 %} 
+            {% if form.unJdr is defined %}
+                {% if form.valide4 is defined %}
+                    {% if form.valide4 == true %}
+                        <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+                        <center>
+                            <a style="text-decoration:none" href="index.php?page=indexMj&mj={{session.pseudoJdr}}" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+                        </center>
+                    {% else %}
+                        <h1 class="alert alert-danger" role="alert">{{ form.message }} </h1>
+                        <center>
+                            <a style="text-decoration:none" href="index.php?page=indexMj&mj={{session.pseudoJdr}}" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+                        </center>
+                    {% endif %}
+                {% else %}
+                    <form  class="form-signin" action="index.php?page=indexMj&mj={{session.pseudoJdr}}&idJdr={{form.unJdr.idJdr}}" method="post" enctype="multipart/form-data">
+                        <br/>
+                        <center>
+                            <h1 style="font-family:CaviarDreams;font-size:70px;background-color:grey; padding:10px;width:60%;color:black;border-style: solid;border-color: black">{{form.unJdr.nomJeu}}</h1>
+                        </center>
+                        <br/>
+                        <center>
+                            <div class="livreSelec">
+                                {% if form.unJdr.valide == NULL %}
+                                    <h2 style='border-top:solid 1px; border-bottom:solid 1px'>Votre JDR n'a pas encore été vérifié</h2>
+                                {% elseif form.unJdr.valide == 1 %}
+                                    <h2 style='border-top:solid 1px; border-bottom:solid 1px; background-color: green'>Votre JDR a été validé</h2>
+                                {% elseif form.unJdr.valide == 0 %}
+                                    <h2 style='border-top:solid 1px; border-bottom:solid 1px; background-color: red'>Votre JDR a été refusé</h2>
+                                {% endif %}
+                                {% if form.unJdr.illustration is not empty %}
+                                    <center>
+                                        <img class="img-responsive" src="images/{{form.unJdr.illustration}}" alt="image du produit" width="80%" height="150" style="margin-top:25px; border:solid 2px"/>
+                                    </center>
+                                {% endif %}
+                                <div class="media-body">
+                                    <h2 style=" border:solid 2px"> Info MJ </h2>
+                                    <h3>Maitre du jeu : {{form.unJdr.mj}}</h3>
+                                    <h3>Téléphone : {{form.unJdr.telMj}}</h3>
+                                    {% if form.unJdr.fournisMj == 1 %}
+                                        <h3>Fournis le JDR : Oui</h3>
+                                    {% else %}
+                                        <h3>Fournis le JDR : Non</h3> 
+                                    {% endif %}
+                                    <h3>Début du JDR : {{form.unJdr.dateJdr}}</h3>
+                                    <h3>Synopsis :</h3>
+                                    <div class="syno">
+                                        <h5> {{form.unJdr.synopsis}}</h5>
+                                    </div>
+                                    <h2 style="border:solid 2px"> Info JDR </h2>
+                                    <h3>Durée par session : {{form.unJdr.dureeSess}} minutes</h3>
+                                    <h3>Description du JDR:</h3>
+                                    <div class="syno">
+                                        <h5>{{form.unJdr.descriptionJeu}}</h5>
+                                    </div>
+                                    <h3>Règles du JDR: </h3>
+                                    <div class="syno">
+                                        <h5>{{form.unJdr.regleJeu}}</h5>
+                                    </div>
+                                    <h3> 
+                                        Participants : 
+                                        <br/>
+                                        {% for u in liste %}
+                                            {% if u.jdrPartic == form.unJdr.idJdr %}
+                                                -{{u.pseudoJdr}}
+                                                <br/>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h3>
+                                </div>
+                                <br/><br/>
+                            </div>
+                            <br/>
+                            <input type='hidden' name='idJ' value='{{form.unJdr.idJdr}}'/>
+                            <input type='hidden' name='idG' value='{{form.unJdr.idJeu}}'/>
+                            {% if form.unJdr.nbJoueur == 0 %}
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" name="btSupp">Supprimer</button>
+                                <a style="text-decoration:none;" href="index.php?page=indexMj&mj={{session.pseudoJdr}}"><h6 style='width:20%'>Retour</h6></a>
+                            {% endif %}
+                        </center>
+                        <br/><br/>
+                    </form>
+                {% endif %}
+            {% else %}
+                {% if form.mesJdr is defined %}
+                    {% if form.mesJdr != null %}
+                        <h1 style="padding:10px; background-color: white; margin-top:0%;border-radius:5px">Bienvenue dans la partie MJ</h1>
+                        <hr/>
+                        <center>
+                            <a href='index.php?page=creaJdr' style='text-decoration: none'><h3 style='margin-top:0%;margin-bottom:2%;padding:10px;width: 25%;background-color: grey; border-style:solid'>Création de JDR</h3></a>
+                        </center>
+                        <center>
+                            <h2 style="padding:10px; background-color: white; margin-top:0%;width:20%;border: solid 2px">Vos JDR</h2>
+                        </center>
+                        {% for j in form.jdr %}
+                            {% if j.mj == form.mj %}
+                                <a style="margin-left:0%; color:black" href='index.php?page=indexMj&mj={{session.pseudoJdr}}&idJdr={{j.idJdr}}'>
+                                    <div class="mjJdr">
+                                        <div><br>
+                                            {% if j.valide == NULL %}
+                                                <h2 style='border-top:solid 1px; border-bottom:solid 1px;height:87px'>Non vérifié</h2>
+                                            {% elseif j.valide == 1 %}
+                                                <h2 style='border-top:solid 1px; border-bottom:solid 1px; background-color: green; height:87px'>Validé, il reste {{6-j.nbJoueur}} places</h2>
+                                            {% elseif j.valide == 0 %}
+                                                <h2 style='border-top:solid 1px; border-bottom:solid 1px; background-color: red; height:87px'>Refusé</h2>
+                                            {% endif %}
+                                            {% if j.illustration is not empty %}
+                                                <center>
+                                                    <img class='img-repsonsive' src="images/{{j.illustration}}" width='90%' height='200' style='border: solid 2px'>
+                                                </center>
+                                            {% endif %}
+                                            <h3>Nom du JDR : {{j.nomJeu}}</h3>
+                                            <h3>Début du JDR : {{j.dateJdr}}</h3>
+                                            <h3>Durée par session : {{j.dureeSess}} minutes</h3>
+                                            <h2>Nombre de places restantes : {{6-j.nbJoueur}}</h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        <center>
+                            <a style="text-decoration:none;" href="index.php?page=indexJdr"><h6 style='width:20%'>Retour</h6></a>
+                        </center>
+                        <br/><br/>
+                    {% else %}
+                        <h1 class="alert alert-danger"> {{form.message}} </h1>
+                        <center>
+                            <a style="text-decoration:none;" href="index.php?page=indexJdr"><h6 style='width:20%'>Retour</h6></a>
+                        </center>
+                    {% endif %}
+                {% else %}
+                    <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans la partie MJ</h2>
+                    <hr style="margin-left: 0%"/><br/>
+                    <center>
+                        <h2 style='width: 80%; border-style:solid'> Vous n'avez pas encore créé de jdr.<br/>Vous pouvez en créer un ici.</h2>
+                        <a href='index.php?page=creaJdr' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Création de JDR</h3></a>
+                    </center>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <center>
+                <h2 style='width: 80%; border-style:solid'> Vous n'avez pas 16 ans</h2>
+                <a href='index.php?' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Accueil</h3></a>
+            </center>
+        {% endif %}
+    {% else %}
+        <center>
+            <h2 style='width: 80%; border-style:solid'> Utilisateur incorrect</h2>
+            <a href='index.php?' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Accueil</h3></a>
+        </center>
+    {% endif %}
+{% endblock %} 
+

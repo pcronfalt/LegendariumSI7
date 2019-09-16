@@ -1,0 +1,162 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} MJ {% endblock %}
+{% block contenu %}
+    {% if form.leJdr is defined %}
+        {% if form.valide2 is defined %}
+            {% if form.valide2 == true %}
+                <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+                <center>
+                    <a style="text-decoration:none" href="index.php?page=indexJ" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+                </center>
+            {% else %}
+            {% endif %}
+        {% else %}
+            {% if form.valide3 is defined %}
+                {% if form.valide3 == true %}
+                    <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+                    <center>
+                        <a style="text-decoration:none" href="index.php?page=indexJ" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+                    </center>
+                {% else %}
+                {% endif %}
+            {% else %}
+                {% if form.valide4 is defined %}
+                    {% if form.valide4 == false %}
+                        <h1 class="alert alert-danger" role="alert">{{ form.message }} </h1>
+                        <center>
+                            <a style="text-decoration:none" href="index.php?page=indexJ" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+                        </center>
+                    {% else %}
+                    {% endif %}
+                {% else %}
+                    <br/>
+                    <center>
+                        <h1 style="font-family:CaviarDreams;font-size:70px;background-color:grey; padding:10px;width:60%;color:black;border-style: solid;border-color: black">{{form.leJdr.nomJeu}}</h1>
+                    </center>
+                    <br/>
+                    <center>
+                        <div class="livreSelec">
+                            <form  class="form-signin" action="index.php?page=indexJ&idJdr={{form.leJdr.idJdr}}" method="post" enctype="multipart/form-data">
+                                {% if form.leJdr.illustration is not empty %}
+                                    <center>
+                                        <img class="img-responsive" src="images/{{form.leJdr.illustration}}" alt="image du produit" width="80%" height="350" style="margin-top:25px; border:solid 2px"/>
+                                    </center>
+                                {% endif %}
+                                <div class="media-body">
+                                    <h2 style=" border:solid 2px"> Info JDR </h2>
+                                    <h3>Maitre du jeu : {{form.leJdr.mj}}</h3>
+                                    {% if form.leJdr.fournisMj == 1 %}
+                                        <h3>Le maitre du jeu fournis le JDR</h3>
+                                    {% else %}
+                                        <h3>Le maitre du jeu ne fournis pas le JDR</h3>
+                                    {% endif %}
+                                    <h3>Début du JDR : {{form.leJdr.dateJdr}}</h3>
+                                    <h3>Synopsis :</h3>
+                                    <div class="syno">
+                                        <h5> {{form.leJdr.synopsis}}</h5>
+                                    </div>
+                                    <h3>Durée par session : {{form.leJdr.dureeSess}} minutes</h3>
+                                    <h3>Description du JDR:</h3>
+                                    <div class="syno">
+                                        <h5>{{form.leJdr.descriptionJeu}}</h5>
+                                    </div>
+                                    <h3>Règles du JDR: </h3>
+                                    <div class="syno">
+                                        <h5>{{form.leJdr.regleJeu}}</h5>
+                                    </div>
+                                    {% if session.login is defined %}
+                                        <h2> Nombre de places restantes : {{6-form.leJdr.nbJoueur}}</h2>
+                                        {% if session.jeuP == NULL %}
+                                            {% if form.leJdr.nbJoueur != 6 %}
+                                                <center>
+                                                    <button class='btnRes' type="submit" name="btInsc" ><h6 style='width:100%'>S'inscrire au JDR</h6></button>
+                                                </center>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if session.jeuP == form.leJdr.idJdr %}
+                                            <center>
+                                                <button class='btnRes' type="submit" name="btDesin" ><h6 style='width:100%'>Se désinscrire du JDR</h6></button>
+                                            </center>
+                                        {% endif %}
+                                    {% endif %}
+                                    <input type='hidden' value='{{form.leJdr.idJdr}}' name='idJeu'/>
+                                </div>
+                                <br/><br/>
+                            </form>
+                        </div>
+                        <a style="text-decoration:none;" href="index.php?page=indexJ"><h6 style='width:20%'>Retour</h6></a>
+                    </center>
+                    <br/><br/>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <h1 style="padding:10px; background-color: white; margin-top:0%;border-radius:5px">Bienvenue dans la liste des JDR disponibles</h1>
+        <hr/>
+        {% if session.jeuP != NULL %}
+            <center>
+                <h2 style="padding:10px; background-color: white; margin-top:0%;border: solid 2px">JDR auquel vous participez</h2>
+            </center>
+            {% if form.jeuP is defined %}
+                <center>
+                    <a style="margin-left:0%; color:black" href='index.php?page=indexJ&idJdr={{form.jeuP.idJdr}}'>
+                        <div class="mjJdr">
+                            <div><br>
+                                {% if form.jeuP.illustration is not empty %}
+                                    <center>
+                                        <img class='img-repsonsive' src="images/{{form.jeuP.illustration}}" width='90%' height='200' style='border: solid 2px'>
+                                    </center>
+                                {% endif %}
+                                <h3>Nom du JDR : {{form.jeuP.nomJeu}}</h3>
+                                <h3>Début du JDR : {{form.jeuP.dateJdr}}</h3>
+                                <h3>Durée par session : {{form.jeuP.dureeSess}} minutes</h3>
+                                <h2>Nombre de places restantes : {{6-form.jeuP.nbJoueur}}</h2>
+                            </div>
+                        </div>
+                    </a>
+                </center>
+            {% endif %}
+        {% endif %}
+        {% if form.jdr != NULL %}
+            <center>
+                <h2 style="padding:10px; background-color: white; margin-top:0%;border: solid 2px">JDR disponibles</h2>
+            </center>
+            <center>
+                {% for j in form.jdr %}
+                    {% if j. nbJoueur != 6 %}
+                        {% if j.valide == 1 %}
+                            {% if j.idJdr != session.jeuP %}
+                                <div class="mjJdr">
+                                    <a style="margin-left:0%; color:black" href='index.php?page=indexJ&idJdr={{j.idJdr}}'>
+                                        <br>
+                                        {% if j.illustration is not empty %}
+                                            <center>
+                                                <img class='img-responsive' src="images/{{j.illustration}}" width='90%' style='border: solid 2px; min-height: 200px; max-height:200px'>
+                                            </center>
+                                        {% endif %}
+                                        <h3>Nom du JDR : {{j.nomJeu}}</h3>
+                                        <h3>Début du JDR : {{j.dateJdr}}</h3>
+                                        <h3>Durée par session : {{j.dureeSess}} minutes</h3>
+                                        <h2>Nombre de places restantes : {{6-j.nbJoueur}}</h2>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </center>
+            {% if session.login is defined %}
+                <center>
+                    <a style="text-decoration:none;" href="index.php?page=indexJdr"><h6 style='width:10%'>Retour</h6></a>
+                </center>
+            {% endif %}
+            <br/><br/>
+        {% else %}
+            <center>
+                <h2 style='width: 80%; border-style:solid'> Aucun JDR disponible</h2>
+                <a href='index.php?page=indexJdr' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Retour</h3></a>
+            </center>
+        {% endif %}
+    {% endif %}
+{% endblock %} 
+

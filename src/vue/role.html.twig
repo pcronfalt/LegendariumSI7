@@ -1,72 +1,47 @@
 {% extends "base.html.twig" %}
-{% block style %}<link href="css/style-signin.css" rel="stylesheet">
-{% endblock %}
-{% block title %}
-  {{ parent() }}
-  Rôle
-{% endblock %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet"> {% endblock %}
+{% block title %} {{ parent() }} Role {% endblock %}
+{% block contenu %} 
 
-{% block contenu %}
 
-  <div class="center-block col-md-10" style="float:none">
 
-    <h1 >
-      Gestion des Rôle
-    </h1>
-    <br/>
-    <div class="panel panel-custom" style="color: #34495e;">
-      <!-- Table -->
-      <div class="table-responsive">
-        <table class="table table-hover table-striped ">
 
-          <tr style="background-color: #4aa3df;">
-            <th>Libellé</th>
-            <th></th>
-            <th></th>
-          </tr>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <h1>Gestion des Roles</h1>
+        <div class="panel-heading">Libellé</div>
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
 
-          {% for r in liste %}
-            <tr>
-              <td value="{{ r.id }}">{{ r.libelle }}</td>
-              <td>
+                {% for r in liste %}
+
+                </td><td>
+                {{r.libelle}}
+            </td><td> 
                 <div class="btn-group btn-group-lg">
-                  <a href="index.php?page=modifrole&id={{ r.id }}">
-                    <i class="fas fa-pen"></i>
-                  </a>
-                </div>
-              </td>
-              <td>
+                    <a href="index.php?page=modifR&id={{r.id}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></div></td><td>
                 <div class="btn-group btn-group-lg">
-                  <a href="#">
-                    <i class="fas fa-trash"></i>
-                  </a>
-                </div>
-              </td>
-            </tr>
+                    <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></div></td></tr> 
+                    {% endfor %}
+    </table>
+</div>
 
-          {% endfor %}
 
-        </table>
-      </div>
-    </div>
-    <div class="panel panel-custom">
-      <div class="panel-heading">Ajouter un Rôle
-      </div>
-      <div class="panel-body">
-        <form class="form-signin" action="index.php?page=role" method="post" enctype="application/x-www-formurlencoded">
-          <div class="wrap-input100 validate-input">
-            <label for="inputLibelle" class="sr-only">Libellé:</label>
-            <input class="input100" type="text" name="inputLibelle" placeholder="Saisir un libelle" id="inputLibelle" required="required" autofocus="autofocus">
-            <span class="focus-input100"></span>
-          </div>
+</div>
 
-          <div class="container-contact100-form-btn ">
-
-            <button class="custom100-form-btn" type="submit" name="btAjouter">Ajouter</button>
-          </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">Ajouter un role </div>
+    <div class="panel-body">
+        <form  class="form-signin" action="index.php?page=role" method="post" enctype="application/x-www-form-
+               urlencoded">
+            <label for="libelle" class="sr-only">Libellé:</label>
+            <input type="text" id="libelle" name="libelle" class="form-control" placeholder="Saisir un libelle" required autofocus>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAjouter">Ajouter</button>
         </form>
-      </div>
-    </div>
-
-  </div>
-{% endblock %}
+    </div>    
+</div>
+</div>
+</div>      
+</html>{# empty Twig template #}
+{% endblock %} 

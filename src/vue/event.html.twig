@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% for a in liste %}
+    {% block title %} {{ parent() }} {{form.actu.titre}} {% endblock %}
+{%endfor%}
+{% block contenu %} 
+    {% if form.actu is defined %} 
+        {% if form.actu != null %}
+            <br/>
+            <center>
+                <h1 style="font-family:CaviarDreams;font-size:70px;background-color:grey; padding:10px;width:60%;color:black;border-style: solid;border-color: black">{{form.actu.titre}}</h1>
+            </center>
+            <br/>
+            <center>
+                <div class="actuSelec">
+                    {% if form.actu.photo is not empty %}
+                        <center>
+                            <img class="img-responsive" src="images/{{form.actu.photo}}" alt="image du produit" width="80%" height="450" style="margin-top:50px;"/>
+                        </center>
+                    {% endif %}
+                    <div class="media-body">
+                        <h3>L'évènement se déroulera le {{form.actu.date}}</h3>
+                        <br/>
+                        <div class='contenuActu'>
+                            <h5>{{form.actu.contenu}}</h5>
+                        </div>
+                    </div>
+                    <br/><br/>
+                </div>
+            </center>  
+            <center>
+                <a style="text-decoration:none" href="javascript:history.go(-1)" class="retourA"><h6>Retour</h6></a>
+            </center>
+            <br/><br/>
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php">Retourner a l'accueil</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php">Retourner a l'accueil</a></h1>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php">Retourner a l'accueil</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

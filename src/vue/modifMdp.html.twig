@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Modifier votre mot de passe {% endblock %}
+{% block contenu %} 
+    {% if form.utilisateur is defined %} 
+        {% if form.utilisateur != null %}
+            {% if form.utilisateur.email == session.login %}
+                <form class="form-signin" action="index.php?page=modifMdp" method="post"enctype="multipart/form-data">
+                    <h1 style="font-family:CaviarDreams">Modifier votre mot de passe</h1>
+                    <label for="idUtilisateur" class="sr-only"> idUtilisateur:</label>
+                    <input type="hidden" value="{{form.utilisateur.idUtilisateur}}" id="idUtilisateur" name="idUtilisateur" required autofocus/>
+                    <br/>
+                    <label for="mdp" class="sr-only"> mdp:</label>
+                    <input type="password" id="mdp" class="form-control" name="mdp" placeholder="Saisir votre mot de passe" required autofocus/>
+                    <br/>
+                    <label for="mdp2" class="sr-only"> mdp2:</label>
+                    <input type="password" id="mdp2" class="form-control" name="mdp2" placeholder="Confirmez votre mot de passe" required autofocus/>
+                    <br/>
+                    <center>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                    </center>
+                </form>
+            {% else %} 
+                <h1 class="alert alert-danger" role="alert">Vous vous êtes perdu? :(</h1> 
+                <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=accueil">Retourner sur la page d'accueil</a></h1>
+            {% endif %}  
+        {%else%}
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=gestionCompte&email={{session.login}}">Retourner sur la gestion de votre compte</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none" href="index.php?page=gestionCompte&email={{session.login}}" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=gestionCompte&email={{session.login}}">Retourner sur la gestion de votre compte</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

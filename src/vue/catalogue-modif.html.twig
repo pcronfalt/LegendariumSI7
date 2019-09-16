@@ -1,0 +1,89 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Modifier un livre {% endblock %}
+{% block contenu %} 
+    {% if form.livre is defined %} 
+        {% if form.livre != null %}
+
+            <form class="form-signin" action="index.php?page=modifCatalogue" method="post"enctype="multipart/form-data">
+
+                <h1 class="h3 mb-3 font-weight-normal">Modifier un livre</h1>
+                <br/>
+                <label for="id" class="sr-only"> id:</label>
+                <input type="hidden" id="id" name="idLivre" value="{{form.livre.idLivre}}"/>
+                <h3 style='text-align:left; font-size:16px'>Titre:</h3>
+                <label for="titre" class="sr-only">titre:</label>
+                <input value='{{ form.livre.titre}}' type="text" id="titre" name="titre" class="form-control" placeholder="Saisir un titre" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Genre:</h3>
+                <select class="form-control" name="idGenre">                     
+                    <option value='{{ form.livre.idGenre }}' selected style='background-color: #008ff4; color:white'>{{form.livre.libelleG}}</option>
+                    {% for g in form.genre %}
+                        <option value='{{ g.idGenre }}'>{{ g.libelleG}}</option>
+                    {% endfor %}
+                </select>
+                <h3 style='text-align:left; font-size:16px'>Catégorie:</h3>
+                <select class="form-control" name="idCat">
+                    <option value='{{ form.livre.idCat }}' selected style='background-color: #008ff4; color:white'>{{form.livre.libelleC}}</option>
+                    {% for c in form.categorie %}                      
+                        <option value='{{ c.idCat }}'>{{ c.libelleC }}</option>     
+                    {% endfor %}   
+                </select>
+                <h3 style='text-align:left; font-size:16px'>Auteur:</h3>
+                <select class="form-control" name="idAuteur">
+                    <option value='{{ form.livre.idAuteur }}' selected style='background-color: #008ff4; color:white'>{{form.livre.prenomA}} {{form.livre.nomA}}</option>
+                    {% for a in form.auteur %}
+                        <option value='{{ a.idAuteur }}'>{{ a.prenomA }} {{ a.nomA }}</option>
+                    {% endfor %}
+                </select>
+                <h3 style='text-align:left; font-size:16px'>Editeur:</h3>
+                <select class="form-control" name="idEditeur">
+                    <option value='{{ form.livre.idEditeur }}' selected style='background-color: #008ff4; color:white'>{{form.livre.libelleE}}</option>
+                    {% for e in form.editeur %}                      
+                        <option value='{{ e.idEditeur }}'>{{ e.libelleE }}</option>     
+                    {% endfor %}   
+                </select>
+                <h3 style='text-align:left; font-size:16px'>Isbn:</h3>
+                <label for="isbn" class="sr-only">isbm:</label>
+                <input value='{{ form.livre.isbn }}' type="text" id="isbn" name="isbn" class="form-control" placeholder="Saisir un isbn" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Date de sortie:</h3>
+                <label for="dateSortie" class="sr-only">dateSortie:</label>
+                <input value='{{ form.livre.dateSortie }}' type="date" id="dateSortie" name="dateSortie" class="form-control" placeholder="Saisir une date de sortie" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Résumé:</h3>
+                <label for="resume" class="sr-only">Resume:</label>
+                <textarea type="text" id="resume" name="resume" class="form-control" placeholder="Saisir le résumé" style="resize:vertical; font-size:20px" required autofocus>{{ form.livre.resume }}</textarea>
+                <h3 style='text-align:left; font-size:16px'>Couverture:</h3>
+                <label for="couverture" class="sr-only">Couverture:</label>
+                <input  type="file"  name="couverture"  id="photo" class="form-control">
+                <br/>
+                <select class="form-control" name="couvertureBd">
+                    <option value='{{ form.livre.couverture }}' selected style='background-color: #008ff4; color:white'>{{form.livre.couverture}}</option>
+                    {% for l in form.couverture %}                      
+                        <option value='{{ l.couverture }}'>{{ l.couverture }}</option> 
+                    {% endfor %}   
+                </select>
+                <h3 style='text-align:left; font-size:16px'>Prix:</h3>
+                <label for="prix" class="sr-only">Prix:</label>
+                <input value='{{ form.livre.prix }}' type="number" step="0.01" id="prix" name="prix" class="form-control" placeholder="Saisir un prix" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Nombre de livre:</h3>
+                <label for="nbLivreDispo" class="sr-only">NbLivre:</label>
+                <input value='{{ form.livre.nbLivreDispo }}' type="number" id="nbLivreDispo" name="nbLivreDispo" class="form-control" placeholder="Saisir le nombre de livre disponible" required autofocus>
+                <br/> 
+                <center>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                </center>
+            </form> 
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=catalogueA">Retourner sur le catalogue</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none" href="javascript:history.go(-2)" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=catalogueA">Retourner sur le catalogue</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

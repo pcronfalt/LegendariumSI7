@@ -1,0 +1,176 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Gestion des catégories {% endblock %}
+{% block contenu %}
+    {% if form.jdr is defined %}
+        {% if form.jdr != NULL %}
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <h1 class="h3 mb-3 font-weight-normal">{{ form.message }}</h1>
+                {% else %}  
+                    <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+                {% endif %}         
+            {% endif %}
+            <br/>
+            <center>
+                <h1 style="font-family:CaviarDreams;font-size:70px;background-color:grey; padding:10px;width:60%;color:black;border-style: solid;border-color: black">{{form.jdr.nomJeu}}</h1>
+            </center>
+            <br/>
+            <center>
+                <div class="livreSelec">
+                    {% if form.jdr.illustration is not empty %}
+                        <center>
+                            <img class="img-responsive" src="images/{{form.jdr.illustration}}" alt="image du produit" width="500" height="350" style="margin-top:25px; border:solid 2px"/>
+                        </center>
+                    {% endif %}
+                    <div class="media-body">
+                        <h2 style=" border:solid 2px"> Info MJ </h2>
+                        <h3>Maitre du jeu : {{form.jdr.mj}}</h3>
+                        <h3>Téléphone : {{form.jdr.telMj}}</h3>
+                        {% if form.jdr.fournisMj == 1 %}
+                            <h3>Fournis le JDR : Oui</h3>
+                        {% else %}
+                            <h3>Fournis le JDR : Non</h3> 
+                        {% endif %}
+                        <h3>Début du JDR : {{form.jdr.dateJdr}}</h3>
+                        <h3>Synopsis :</h3>
+                        <div class="syno">
+                            <h5> {{form.jdr.synopsis}}</h5>
+                        </div>
+                        <h2 style="border:solid 2px"> Info JDR </h2>
+                        <h3>Durée par session : {{form.jdr.dureeSess}}</h3>
+                        <h3>Description du JDR:</h3>
+                        <div class="syno">
+                            <h5>{{form.jdr.descriptionJeu}}</h5>
+                        </div>
+                        <h3>Règle du JDR: </h3>
+                        <div class="syno">
+                            <h5>{{form.jdr.regleJeu}}</h5>
+                        </div>
+                        <h3>
+                            Participants :<br/>
+                            {% for u in form.uti %}
+                                {% if form.jdr.idJdr == u.jdrPartic %}
+                                    -{{u.pseudoJdr}}<br/>
+                                {% endif %}
+                            {% endfor %}
+                        </h3>
+                    </div>
+                    <br/><br/>
+                </div>
+                <a style="text-decoration:none;" href="index.php?page=jdrA"><h6 style='width:10%'>Retour</h6></a>
+            </center>
+            <br/><br/>
+        {% else %}
+        {% endif %}
+    {% else %}
+        <div class="panel-body">
+            <div class="">
+                <form  class="form-signin" action="index.php?page=categorieA" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="panel-heading"><h1>JDR en attente</h1></div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <tr><th>Maitre du jeu</th><th>Mail MJ</th><th>Téléphone MJ</th><th>Fournis le JDR</th><th>Date du JDR</th><th></th><th></th><th></th></tr>
+                                    {% for j in liste %}
+                                        {% if j.valide == NULL %}
+                                    <tr>
+                                        <td style="width:10%">
+                                            {{j.mj}}
+                                        </td>
+                                        <td style="width:10%">
+                                            {{j.emailMj}}
+                                        </td>
+                                        <td style="width:10%">
+                                            {{j.telMj}}
+                                        </td>
+                                        <td style="width:10%">
+                                            {% if form.jdr.fournisMj == 1 %}
+                                                Oui
+                                            {% else %}
+                                                Non
+                                            {% endif %}
+                                        </td>
+                                        <td style="width:10%">
+                                            {{j.dateJdr}}
+                                        </td>
+                                        <td style="width:10%">
+                                            <a style="margin-left:0%; color:black; text-decoration:none" href="index.php?page=jdrA&id={{j.idJdr}}">
+                                                <div class="btVoir">
+                                                    <center style="margin-top:3%">
+                                                        <p class="valide" style='font-size:16px; margin-top:0%; '>Voir plus</p>
+                                                    </center>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td style="width:10%">
+                                            <a style="margin-left:0%; color:black; text-decoration:none" href="index.php?page=jdrA&idJdr={{j.idJdr}}&valider=1">
+                                                <div class="btValide">
+                                                    <center style="margin-top:3%">
+                                                        <p class="valide" style='font-size:16px; margin-top:0%; '>Valider</p>
+                                                    </center>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td style="width:10%">
+                                            <a style="margin-left:0%; color:black; text-decoration:none" href="index.php?page=jdrA&idJdr={{j.idJdr}}&valider=2">
+                                                <div class="btRefuse">
+                                                    <center style="margin-top:3%">
+                                                        <p class="valide" style='font-size:16px; margin-top:0%; color:white'>Refuser</p>
+                                                    </center>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr> 
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div> 
+                </form>         
+            </div>
+            <div class="panel-heading"><h1>JDR validé</h1></div>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <tr><th>Maitre du jeu</th><th>Mail MJ</th><th>Fournis le JDR</th><th>Date du JDR</th><th>Participant</th><th></th></tr>
+                    <tr>
+                        {% for j in liste %}
+                            {% if j.valide == 1 %}
+                                <td style="width:10%">
+                                    {{j.mj}}
+                                </td>
+                                <td style="width:10%">
+                                    {{j.emailMj}}
+                                </td>
+                                <td style="width:10%">
+                                    {% if form.jdr.fournisMj == 1 %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                </td>
+                                <td style="width:10%">
+                                    {{j.dateJdr}}
+                                </td>
+                                <td style="width:10%">
+                                    {% for u in form.uti %}
+                                        {% if j.idJdr == u.jdrPartic %}
+                                            -{{u.pseudoJdr}}<br/>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td style="width:10%">
+                                    <a style="margin-left:0%; color:black; text-decoration:none" href="index.php?page=jdrA&id={{j.idJdr}}">
+                                        <div class="btVoir">
+                                            <center style="margin-top:3%">
+                                                <p class="valide" style='font-size:16px; margin-top:0%; '>Voir plus</p>
+                                            </center>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr> 
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div> 
+        </div>
+    {% endif %}
+{% endblock %}
+

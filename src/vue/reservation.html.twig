@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet"> {% endblock %}
+{% block title %} {{ parent() }} Réservations {% endblock %}
+{% block contenu %} 
+    {% if form.valide is defined %} 
+        {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal">{{ form.message }}</h1>
+        {% else %}  
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+        {% endif %}         
+    {% endif %} 
+    <form action="index.php?page=reservationA" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="panel-heading">
+            <h1>Réservations</h1>
+            <br/><br/>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <tr><th><a href="index.php?page=reservationA&idTri=1" style="color:black; text-decoration:none; font-size:14px; margin-left:0%">Numéro de réservation</a></th>
+                        <th><a href="index.php?page=reservationA&idTri=2" style="color:black; text-decoration:none; font-size:14px; margin-left:0%">Livre réservé</a></th>
+                        <th><a href="index.php?page=reservationA&idTri=3" style="color:black; text-decoration:none; font-size:14px; margin-left:0%">Utilisateur</a></th>
+                        <th><a href="index.php?page=reservationA&idTri=4" style="color:black; text-decoration:none; font-size:14px; margin-left:0%">Date de réservation</a></th>
+                        <th></th>
+                    </tr>
+                            {% for r in liste %}
+                        <tr>
+                        <td> 
+                            {{r.idRes}}
+                        </td>
+                        <td>
+                            {{r.titre}}
+                        </td>
+                        <td>
+                            {{r.prenom}} {{r.nom}}
+                        </td>
+                        <td>
+                            {{r.dateRes}}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-lg">
+                                <a href="index.php?page=reservationA&idRes={{r.idRes}}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            </div>
+                        </td> 
+                        </tr> 
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </form>
+</html>
+{% endblock %} 

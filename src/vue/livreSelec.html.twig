@@ -1,0 +1,147 @@
+{% extends "base.html.twig" %}
+{% for l in liste %}
+    {% block title %} {{ parent() }} {{form.livre.titre}} {% endblock %}
+{%endfor%}
+{% block contenu %} 
+    {% if form.livre is defined %} 
+        {% if form.livre != null %}
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <h1 class="h3 mb-3 font-weight-normal alert alert-success">{{ form.message }}</h1>
+                {% else %}  
+
+                {% endif %}
+            {%else %}
+
+            {% endif %}
+            <br/>
+            <center>
+                <h1 style="font-family:CaviarDreams;font-size:70px;background-color:grey; padding:10px;width:60%;color:black;border-style: solid;border-color: black">{{form.livre.titre}}</h1>
+            </center>
+            <br/>
+            <form  class="form-signin" action="index.php?page=livreSelec" method="post" enctype="multipart/form-data">
+                <center>
+                    <div class="livreSelec">
+                        {% if form.livre.couverture is not empty %}
+                            <center>
+                                <img class="img-responsive" src="images/{{form.livre.couverture}}" alt="image du produit" width="350" height="500" style="margin-top:25px; border:solid 2px"/>
+                            </center>
+                        {% endif %}
+                        <div class="media-body">
+                            <h3>{{form.livre.prenomA}} {{form.livre.nomA}}</h3>
+                            <h3>{{form.livre.libelleG}} - {{form.livre.libelleC}}</h3>
+                            <h3>Prix : {{form.livre.prix}}€</h3>
+                            {% if form.livre.idDispo ==  2%}
+                                <h3>Disponibilité : <h4 style="background-color:{{ form.livre.codeCouleur }}; width:26%"> {{form.livre.libelleD}}<br/> {{form.livre.nbLivreDispo}} livre(s) restant(s)</h4></h3>
+                                    {% else %}
+                                <h3>Disponibilité : <h4 style="background-color:{{ form.livre.codeCouleur }}"> {{form.livre.libelleD}}</h4></h3>
+                            {% endif %}
+                            <h3>Résumé :</h3>
+                            <div class="resume">
+                                <h5> {{form.livre.resume}}</h5>
+                            </div>
+                        </div>
+                        <br/>
+                        {% if form.livre.idDispo != 3 %}
+                            {% if session.login is defined %}
+                                <input value="{{form.livre.idLivre}}" type="hidden" id="titre" name="idLivre" required autofocus>
+                                <center>
+                                    <button class='btnRes' type="submit" name="btReserver" ><h6 style='width:100%'>Je réserve ce livre</h6></button><br/><h7>-</h7><br/>
+                                    <button class='btnRes' type="submit" name="btCc" ><h6 style='width:100%'>Coup de coeur</h6></button>
+                                </center>
+                            {% endif %}
+                        {% else %}
+                            {% if session.login is defined %}
+                                <input value="{{form.livre.idLivre}}" type="hidden" id="titre" name="idLivre" required autofocus>
+                                <input value="{{session.idUtilisateur}}" type="hidden" id="idUtilisateur" name="idUtilisateur" required autofocus>
+                                <button class='btnRes' type="submit" name="btCc" ><h6 style='width:100%'>Coup de coeur</h6></button>
+                            {% endif %}
+                        {% endif %}
+                        <br/><br/>
+                    </div>
+                </center> 
+            </form>
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <center>
+                        <a style="text-decoration:none;" href="javascript:history.go(-2)"><h6 style='width:20%'>Retour</h6></a>
+                    </center>
+                {% else %}  
+                    <center>
+                        <a style="text-decoration:none;" href="javascript:history.go(-1)"><h6 style='width:20%'>Retour</h6></a>
+                    </center>
+                {% endif %}
+            {% endif %}
+            <br/>
+            <center>
+                <div class="motCle">   
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <center>
+                            <div class="carousel-inner">
+                                <div style="border-radius: 0px" class="item active" >
+                                    <a href="" style="text-decoration:none; cursor: default;" onclick="return false">
+                                        <div class="slide1motc">
+                                            <center>
+                                                <br/><br/><br/>
+                                                <h1 style="font-size:34px;padding:15px;background-color:white; border:solid 2px"> Livres que vous pourriez aimer </h1>
+                                            </center>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% for d in form.desLivres %}
+                                    {% if form.livre.libelleG == d.libelleG %}
+                                        {% if form.livre.libelleC == d.libelleC %}
+                                            {% if form.livre.nomA == d.nomA %}
+                                                <div style="border-radius: 0px" class="item">
+                                                    <a class="lienMc" href="index.php?page=livreSelec&idLivre={{d.idLivre}}" style="text-decoration:none; border-color:black">
+                                                        <div class="livreMotcle">
+                                                            <div class="media-body">
+                                                                <h3 style="font-size:14px">{{d.titre}}</h3>
+                                                                <h3 style="font-size:14px">{{d.libelleG}} - {{d.libelleC}}</h3>
+                                                            </div>
+                                                            {% if d.couverture is not empty %}
+                                                                <center>
+                                                                    <img class="img-repsonsive" src="images/{{d.couverture}}" alt="image du produit" width="130" height="205" style="margin-top:5%;border:solid 1px;border-color:black"/>
+                                                                </center>
+                                                            {% endif %}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </center>
+                        <a  style="background-image: none" class="left carousel-control btnSlide" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a  style="background-image: none" class="right carousel-control btnSlide" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </center>
+            <br/><br/>
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <center>
+                <a style="text-decoration:none;" href="index.php?page=catalogue"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none;" href="index.php?page=catalogue"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <center>
+                <a style="text-decoration:none;" href="index.php?page=catalogue"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

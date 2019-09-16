@@ -1,181 +1,42 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap core CSS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <link href="css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-    <link href="floating-labels.css" rel="stylesheet">
-  </head>
-  <body>
-    {% if form.valide is defined %}
-      {% if form.valide == true %}
-        <div class="container-fluid">
-          <div class="row" style="margin-top:5em;margin-bottom:5em">
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-6">
-              <div id="borderimg2">
-                <div class="card">
-                  <div class="container-fluid">
-                    <h5 class="textcenter">Inscription réussie !</h5>
-                  </div>
-                  <hr/>
-                  <div class="container-fluid ">
-                    <h5 class="textcenter">Voici votre identifiant :
-                      {{form.email}}</h5>
-
-                  </div>
-                  <hr/>
-                  <div class="container-fluid textcenter">
-
-                    <p>Retourner sur la page index
-                      <a type="button" href="index.php">
-                        <i class="fas fa-home icon"></i>
-                      </a>
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-          </div>
-        </div>
-
-      {% else %}
-        <div class="container-fluid">
-          <div class="row" style="margin-top:5em;margin-bottom:5em">
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-6">
-              <div id="borderimg2">
-                <div class="card">
-                  <div class="container-fluid">
-                    <h5 class="textcenter">Echec de l'inscription !</h5>
-                  </div>
-                  <hr/>
-
-                  <div class="container-fluid ">
-                    <h5 class="textcenter">
-                      <strong>Erreur !
-                      </strong>
-                    {{ form.message }}</h5>
-
-                  </div>
-                  <hr/>
-                  <div class="container-fluid textcenter">
-
-                    <p>Retourner sur la page d'inscription
-                      <a type="button" href="index.php?page=inscrire">
-                        <i class="fas fa-home icon"></i>
-                      </a>
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-          </div>
-        </div>
-
-      {% endif %}
-
-    {% else %}
-
-      <div class="container-fluid">
-        <div class="row" style="margin-top:5em;margin-bottom:5em">
-          <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-
-          <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-6">
-            <div id="borderimg2">
-              <div class="card">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-10 textcenter">
-                      <h5 class="textcenter" style="margin-left:20%">Inscrivez-vous sur Guy Mollet Shop</h5>
-                    </div>
-                    <div class="col-2 textcenter">
-                      <a href="index.php">
-                        <i class="fas fa-times icon fa-lg"></i>
-                      </a>
-                    </div>
-                  </div>
-
-                </div>
-                <hr/>
-                <div class="container-fluid ">
-                  <form class="form-signin" action="index.php?page=inscrire" method="post" enctype="application/x-www-form-urlencoded">
-
-                    <div class="input-container" style="padding-top:0.5em" data-validate="Please enter your Email">
-                      <i class="fas fa-envelope icon"></i>
-                      <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Enter email" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="input-container" style="padding-top:0.5em" data-validate="Please enter your Password">
-                      <i class="fas fa-lock icon"></i>
-                      <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Enter Mot de passe" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="input-container" style="padding-top:0.5em" data-validate="Please Confirmation mot de passe">
-                      <i class="fas fa-key icon"></i>
-                      <input type="password" id="inputPassword2" name="inputPassword2" class="form-control" placeholder="Confirmation mot de passe" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="input-container" style="padding-top:0.5em" data-validate="Please enter yout nom">
-                      <i class="fas fa-user icon"></i>
-                      <input type="text" id="nom" name="nom" class="form-control" placeholder="Enter nom" required="required" autofocus="autofocus">
-                    </div>
-
-                    <div class="input-container" style="padding-top:0.5em" data-validate="Please enter your prenom">
-                      <i class="fas fa-user-friends icon"></i>
-                      <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Enter prenom" required="required" autofocus="autofocus">
-                    </div>
-
-                    <input type="hidden" name="role" value="2"/>
-
-                    <div class="container-fluid textcenter">
-                      <button type="submit" class="btnsingin" name="btInscrire">S'inscrire</button>
-
-                    </div>
-
-                  </form>
-
-                </div>
-                <hr/>
-                <div class="container-fluid textcenter">
-
-                  <p>J'ai déja un compte
-                    <a href="index.php?page=connexion">
-                      <button type="button" class="btnsingin">Login</button>
-                    </a>
-
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3"></div>
-        </div>
-      </div>
-
-    {% endif %}
-
-  </body>
-
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-  window.jQuery || document.write('<script src="js/jquery3.2.1.min.js"><\/script>')
-</script>
-<script src="js/bootstrap.min.js"></script>
-</html>
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Inscription {% endblock %}
+{% block contenu %} 
+    {% if form.valide is defined %} 
+        {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal">Inscription réussie</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Voici votre identifiant : {{form.email}}</h1>    
+        {% else %} 
+            <h1 class="h3 mb-3 font-weight-normal">Echec de l'inscription</h1> 
+            <h1 class="h3 mb-3 font-weight-normal">Erreur : {{form.message}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=inscrire">Retourner sur 
+                    la page d'inscription</a></h1>
+                {% endif %}     
+            {% else %}  
+        <form class="form-signin" action="index.php?page=inscrire" method="post" 
+              enctype="application/x-www-form-urlencoded">
+            <h1 class="h3 mb-3 font-weight-normal">Inscrivez-vous sur Legendarium</h1>
+            <br/>
+            <label for="email" class="sr-only">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+            <br/>
+            <label for="password" class="sr-only">Mot de passe:</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            <br/>
+            <label for="password2" class="sr-only">Mot de passe:</label>
+            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirmation mot de passe" required>
+            <br/>
+            <label for="Nom" class="sr-only">Nom</label>
+            <input type="text" id="Nom" name="Nom" class="form-control" placeholder="Nom" required>
+            <br/>
+            <label for="Prenom" class="sr-only">Prenom</label>
+            <input type="text" id="Prenom" name="Prenom" class="form-control" placeholder="Prenom" required>
+            <br/>
+            <label for="dateNaiss" class="sr-only">DateNaiss</label>
+            <input type="date" id="dateNaiss" name="dateNaiss" class="form-control"  placeholder="Date Naissance" required>
+            <br/>
+            <center>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="btInscrire">S'inscrire</button>
+            </center>
+        </form>
+    {% endif %}  
+{% endblock %} 
