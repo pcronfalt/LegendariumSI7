@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Modifier une catégorie {% endblock %}
+{% block contenu %} 
+    {% if form.categorie is defined %} 
+        {% if form.categorie != null %}
+
+            <form class="form-signin" action="index.php?page=modifCategorie" method="post"enctype="multipart/form-data">
+
+                <h1 class="h3 mb-3 font-weight-normal">Modifier une catégorie</h1>
+                <label for="id" class="sr-only"> id:</label>
+                <input type="hidden" id="id" name="idCat" value="{{form.categorie.idCat}}"/>
+                <h3 style='text-align:left; font-size:16px'>Catégorie:</h3>
+                <label for="libelleC" class="sr-only">libelle:</label>
+                <input value="{{form.categorie.libelleC}}" type="text" id="libelleC" name="libelleC" class="form-control" placeholder="Saisir la catégorie" required autofocus>
+                <br/>
+                <center>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                </center>
+            </form> 
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=categorieA">Retourner sur la gestion des catégories</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none" href="javascript:history.go(-2)" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=categorieA">Retourner sur la gestion des catégories</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet"> {% endblock %}
+{% block title %} {{ parent() }} role {% endblock %}
+{% block contenu %} 
+    {% if form.utilisateur is defined %} 
+        {% if form.utilisateur != null %}
+
+            <form class="form-signin" action="index.php?page=modifRole" method="post"enctype="application/x-www-form-urlencoded">
+
+                <h1 class="h3 mb-3 font-weight-normal">Modifier un role</h1>
+                <br/>
+                <input type="hidden" value="{{form.utilisateur.email}}" name='email'>
+                <select class="form-control" name="idRole">
+                    {% for r in form.role %}
+                        <option value='{{ r.idRole }}'>{{ r.libelleRole}}</option>
+                    {% endfor %}
+                </select>
+                <br/>
+                <center>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifierR">Modifier</button>
+                </center>
+            </form> 
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <center>
+                <h3 style='background-color:white;padding:8px;width:50%;border-style:solid;border-color:black'> Utilisateur incorrect </h3>
+                <a style="text-decoration:none;" href="index.php?page=utilisateur"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+                {% endif %}     
+            {% else %}  
+                {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal alert alert-success">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none;" href="index.php?page=utilisateur"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+                {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <center>
+                <a style="text-decoration:none;" href="index.php?page=utilisateur"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+                {% endif %} 
+            {% endif %}      
+
+
+{% endblock %}

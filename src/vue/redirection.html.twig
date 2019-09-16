@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Redirection {% endblock %}
+{% block contenu %} <html>
+        <h1 style=' padding:10px;background-color: red; color: black'> Vous vous êtes perdu ? </h1>
+        <center>
+        <h2>La page que vous cherchez n'existe pas :(</h2>
+        <h2>Veuillez retourner a l'accueil</h2>
+        </center>
+        <br/>
+        <a href='index.php' style='text-decoration: none; color:black;background-color:white;padding:15px;margin:90% 55% 10% 45%'>Accueil</a>
+        
+{% endblock %} 

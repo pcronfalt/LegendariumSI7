@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/custom.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+        <title>
+            {% block title %}
+                Légendarium -
+            {% endblock %}
+        </title>
+    {% block style %}{% endblock %}
+
+</head>
+<body >
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-default">
+        <a class="navbar-brand" href="index.php">LégendariuM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="color: #fff">
+            <i class="fas fa-bars"></i>
+
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav mr-auto  ">
+                <li class="nav-item ">
+                    <a class="nav-link " href="index.php?page=catalogue">Collections</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=contact">Contact</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=mentions">Mentions legales</a>
+                </li>
+            </ul>
+            {% if session.login is defined %}
+            {% else %}
+                <ul class="navbar-nav " style="padding:0.5em">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=connexion">Connexion</a>
+                    </li>
+                </ul>
+            {% endif %}
+            <!-- <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="borderimg1"> <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> </form> -->
+            <!-- Menu Profile================================================== -->
+            <ul class="navbar-nav " style="margin-left: 0em; margin-right: 0em;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                        <div class="container">
+                            {% if session.login is defined %}
+                                <img src="images/images.png" alt="Bootstrap" class="img-round" style="width:40px; height:40px ;">
+
+                            {% endif %}
+
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <ul>
+                            {% if session.login is defined %}
+                                <li>
+                                    <img src="images/images.png" alt="Bootstrap" class="img-round imgcenter" style="width:30px; height:30px ; "></li>
+                                <li>
+                                    <p class="textcenter"></p>
+                                    <p class="textemal">
+                                        {{session.login}}</p>
+
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=profil">
+                                        <i class="fas fa-user-cog"></i>
+                                        Account settings
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                {% if session.role == 1 %}
+                                    <li>
+                                        <a class="dropdown-item" href="index.php?page=administration">
+                                            <i class="fas fa-server"></i>
+                                            Administration settings
+                                        </a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                {% endif %}
+
+                                <li>
+                                    <a class="dropdown-item " href="#My cart">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        My cart
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li>
+                                    <a class="dropdown-item " href="#My favorite">
+                                        <i class="fas fa-star"></i>
+                                        My favorite
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=deconnexion">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Sign out
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main role="main">
+
+        {% block body %}
+
+            <div class="container-fluid">
+                <div class="row" style="margin-top:2em;margin-bottom:2em">
+                    <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3">
+                        <div id="borderimg2">
+                            <div class="card " style="padding:1em">
+                            {% block administration %}{% endblock %}
+                            <h5 class="textcenter">Liste des événements</h5>
+
+                            {% for e in listeevent %}
+
+
+                                <div id="borderimg5">
+                                    <div style="margin-top:1em">
+                                        <h4 class="textcenter">{{ e.titre }}</h4>
+                                        <img src="{{ e.illustration }}" width="100%" alt="">
+                                        <hr/>
+                                        <p class="textcenter" style="text-align: justify;">{{ e.information}}</p>
+                                    </div>
+                                </div>
+
+                                <hr/> {% else %}<div id="borderimg5">
+                                    <div style="margin-top:1em">
+                                        <p class="textcenter">Il n'y à pas d'événement!</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-6">
+                    <div id="borderimg2">
+
+                        <div class="card">
+                        {% block ul %}{% endblock %}
+                    {% block contenu %}{% endblock %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12	col-sm-12	col-md-12	col-lg-12	col-xl-3">
+            <div id="borderimg2">
+
+                <div class="card " style="padding:1em">
+
+                    <h5 class="textcenter">Update</h5>
+                    <div id="borderimg5">
+                        <div style="margin-top:1em">
+
+                            <p style="
+                               text-align: justify;
+                               ">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- Footer ================================================== -->
+
+{% endblock %}
+
+</main>
+<footer class="text-muted">
+
+    <div class="jumbotron footer " style="margin-bottom:0">
+        <div class="row vdivide">
+
+            <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-3 text-center">
+
+                <h5>ContacT</h5>
+                <div id="borderimg4">
+                    <div style="margin-top:1em">
+
+                        <p>
+                            <i class="fas fa-envelope fa-lg" style="margin-right:1em"></i>
+                            contact@legendarium.com</p>
+                        <p>
+                            <i class="fas fa-phone fa-lg" style="margin-right:1em"></i>
+                            03 21 51 66 98</p>
+                        <p>
+                            <i class="fas fa-home fa-lg" style="margin-right:1em"></i>20 rue Emile Legrelle 62000 - ARRAS</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-3 text-center">
+                <h5>Nos partenaireS</h5>
+                <div id="borderimg4">
+
+                    <table class="table table-dark">
+
+                        <tbody>
+                            <tr>
+                                <td>Fnac</td>
+                            </tr>
+                            <tr>
+                                <td>Lycée guy mollet</td>
+                            </tr>
+                            <tr>
+                                <td>T.mendes</td>
+                            </tr>
+                            <tr>
+                                <td>T.lefebvre</td>
+                            </tr>
+                            <tr>
+                                <td>Php my admin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-3 text-center">
+                <h5>HoraireS</h5>
+                <div id="borderimg4">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th >Lundi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14h00 - 19h00</td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th >du mardi au samedi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10h00 - 12h00</td>
+                            </tr>
+                            <tr>
+                                <td>13h30 - 19h00</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12	col-sm-12	col-md-6	col-lg-6	col-xl-3 text-center">
+                <h5>Ou nous trouveR</h5>
+                <div id="borderimg4">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.135783988592!2d2.775862015725558!3d50.289393179453405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dd4876806fd45f%3A0x9e2e05bc2b75caae!2s20+Rue+Emile+Legrelle%2C+62000+Arras!5e0!3m2!1sfr!2sfr!4v1557431147321!5m2!1sfr!2sfr"
+                        width="100%"
+                        height="200"
+                        frameborder="0"
+                        style="border:0"
+                        allowfullscreen="allowfullscreen"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="col textcenter" style="margin-bottom:0">
+            <p style="font-size: 12px;">
+                Copyright © 2019 Mise en avant - Réalisation T.Mendes et T.Lefebvre
+            </p>
+        </div>
+
+    </div>
+
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+    window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+</script>
+
+</body>
+
+</html>

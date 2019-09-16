@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} JDR {% endblock %}
+{% block contenu %}
+    <h1 style="padding:10px; background-color: white; margin-top:0%;border-radius:5px">Bienvenue dans la partie JDR</h1>
+    <hr/>
+    {% if session.pseudoJdr == NULL %}
+        {% if form.valide is defined %}
+            {% if form.valide == false %}
+                <h1 class='alert alert-danger'>{{form.message}}</h1>
+                <center>
+                    <a style="text-decoration:none;" href="index.php?page=indexJdr"><h6 style='width:20%'>Retour</h6></a>
+                </center>
+            {% else %}
+                <h1 class='alert alert-success'>{{form.message}}</h1>
+                <center>
+                    <a style="text-decoration:none;" href="index.php?page=indexJdr"><h6 style='width:20%'>Retour</h6></a>
+                </center>
+            {% endif %}
+        {% else %}
+            <form  class="form-signin" action="index.php?page=indexJdr" method="post" enctype="multipart/form-data">
+                <center>
+                    <h2 style="width:70%;border:solid 2px;margin-top:4%">Inscription aux JDR</h2>
+                    <div class="cote">
+                        <div class="coteJ">
+                            <br/>
+                            <h2 style='border-top:solid 1px;border-bottom:solid 1px'>Pseudo :</h2>
+                            <br/><br/>
+                            <label for="pseudo" class="sr-only">pseudo:</label>
+                            <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Saisir votre pseudo" style='width:90%' required >
+                            <br/><br/>
+                            <label for="mdp" class="sr-only">mdp:</label>
+                            <input type="password" id="mdp" name="mdp" class="form-control" placeholder="Saisir votre mot de passe"  style='width:90%' required >
+                            <input type="hidden" id="email" name="email" class="form-control" value='{{session.login}}' >
+                            <br/>
+                            <button class='btnRes' type="submit" name="btInscrire" ><h6 style='width:100%'>S'inscrire aux JDR</h6></button>
+                        </div>
+                    </div>
+                </center>
+            </form>
+        {% endif %}
+    {% else %}
+        {% if form.age >= 16 %}
+            <center>
+                <h2 style="width:70%;border:solid 2px;margin-top:4%">Masteriser ou participer ?</h2>
+                <div class="cote">
+                    <a href="index.php?page=indexMj&mj={{session.pseudoJdr}}" class="coteJ" style="float:left">
+                        <br/><br/><br/><br/><br/>
+                        <h2 style="width:70%;border:solid 2px; margin-top:0%">Masteriser un JDR</h2>
+                    </a> 
+                    <a href="index.php?page=indexJ" class="coteJ" style="float:right">
+                        <br/><br/><br/><br/><br/>
+                        <h2 style="width:70%;border:solid 2px; margin-top:0%">Participer à un JDR</h2>
+                    </a>
+                </div>
+            </center>
+        {% else %}
+            <center>
+                <h2 style="width:70%;border:solid 2px;margin-top:4%">Liste des JDR</h2>
+                <div class="cote">
+                    <a href="index.php?page=indexJ" class="coteJ" style="float:left; margin-left:30%">
+                        <br/><br/><br/><br/><br/>
+                        <h2 style="width:70%;border:solid 2px; margin-top:0%">Liste des JDR</h2>
+                    </a>
+                </div>
+            </center>
+        {% endif %}
+    {% endif %}
+{% endblock %} 
+

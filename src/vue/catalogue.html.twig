@@ -1,0 +1,143 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Catalogue {% endblock %}
+{% block contenu %} 
+    {% if form.valide == true %}
+        <form action="index.php?page=catalogue" method="post" enctype="multipart/form-data">
+            <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans le catalogue</h2>
+            <hr style="margin-left: 0%"/><br/>
+            <div class="top">
+                <label for="search" class="sr-only">search:</label>
+                <input type="search" id="search" name="search" class="form-control search" placeholder="Chercher un livre" required autofocus>
+                <button class="btn btn-lg btn-block glyphicon glyphicon-search btnSearch" type="submit" name="btSearch"></button>
+                {% if form.idG is defined %}
+                    <center>
+                        {% set nb = form.nbpages %}
+                        <nav style='float:left; margin-left:16%'>
+                            <ul class="pagination"> 
+                                {% for i in 1..nb %} 
+                                    <li><a style="color:black" href="index.php?page=catalogue&nopage={{ i-1 }}&idG={{form.idG}}">{{ i }}</a></li> 
+                                    {% endfor %}  
+                            </ul>
+                        </nav>
+                    </center>
+                {% else %}
+                    <center>
+                        {% set nb = form.nbpages %}
+                        <nav style='float:left; margin-left:16%'>
+                            <ul class="pagination"> 
+                                {% for i in 1..nb %} 
+                                    <li><a style="color:black" href="index.php?page=catalogue&nopage={{ i-1 }}&idTri={{form.numTri}}">{{ i }}</a></li> 
+                                    {% endfor %}  
+                            </ul>
+                        </nav>
+                    </center>
+                {% endif %}
+                <div class="dropdown" style="float:right; white-space: nowrap; margin-right:1%" >
+                    <a class="dropdown-toggle tri" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none; color:black;">Genre <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% for g in form.genre %}
+                            <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idG={{g.idGenre}}">{{g.libelleG}}</a></li>
+                            {% endfor %}
+                    </div>
+                </div>  
+                <div class="dropdown" style="float:right; white-space: nowrap; margin-right:2%" >
+                    <a class="dropdown-toggle tri" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none; color:black;">Trier par <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue">Aucun tri</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=1">Ordre alphabétique</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=2">Dernier livre ajouté</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=3">Prix décroissant</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=4">Prix croissant</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=5">Disponibilité</a></li>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            {% for l in liste %}
+                <center>
+                    <div class="livre">
+                        <a href="index.php?page=livreSelec&idLivre={{l.idLivre}}" style="text-decoration:none;">
+                            {% if l.couverture is not empty %}
+                                <center>
+                                    <img class="img-responsive" src="images/{{l.couverture}}" alt="image du produit" width="250" height="300" style="border:solid 2px black"/>
+                                </center>
+                            {% endif %}
+                            <div class="media-body">
+                                <h2>{{l.titre}}</h2>
+                                <h3>{{l.prenomA}} {{l.nomA}}</h3>
+                                <h3>{{l.libelleG}} - {{l.libelleC}}</h3>
+                                <h3>Prix : {{l.prix}}€</h3>
+                                <h3>Date de sortie : {{l.dateSortie}}</h3>
+                                {%if l.idDispo == 2%}
+                                    <h3>Disponibilité : <h4 style="background-color:{{ l.codeCouleur }}; width:26%"> {{l.libelleD}}<br/> {{l.nbLivreDispo}} livre(s) restant(s)</h4></h3>
+                                {% else %}
+                                    <h3>Disponibilité : <h4 style="background-color:{{ l.codeCouleur }}"> {{l.libelleD}}</h4></h3>
+                                {% endif %}
+                            </div>
+
+                            <br/><br/>
+                        </a>
+                    </div>
+                </center>    
+                <br/><br/>
+            {% endfor %}
+            {% if form.idG is defined %}
+                <center>
+                    {% set nb = form.nbpages %}
+                    <nav>  
+                        <ul class="pagination"> 
+                            {% for i in 1..nb %} 
+                                <li><a style="color:black" href="index.php?page=catalogue&nopage={{ i-1 }}&idG={{form.idG}}">{{ i }}</a></li> 
+                                {% endfor %}  
+                        </ul>
+                    </nav>
+                </center>
+            {% else %}
+                <center>
+                    {% set nb = form.nbpages %}
+                    <nav>  
+                        <ul class="pagination"> 
+                            {% for i in 1..nb %} 
+                                <li><a style="color:black" href="index.php?page=catalogue&nopage={{ i-1 }}&idTri={{form.numTri}}">{{ i }}</a></li> 
+                                {% endfor %}  
+                        </ul>
+                    </nav>
+                </center>
+            {% endif %}
+        </form> 
+    {% else %}
+        <form action="index.php?page=catalogue" method="post" enctype="multipart/form-data">
+            <h1 style="font-family:CaviarDreams;">Bienvenue dans le catalogue</h1>
+            <hr style="margin-left: 0%"/><br/>
+            <div class="top">
+                <label for="search" class="sr-only">search:</label>
+                <input type="search" id="search" name="search" class="form-control search" placeholder="Chercher un livre" required autofocus>
+                <button class="btn btn-lg btn-block glyphicon glyphicon-search btnSearch" type="submit" name="btSearch"></button>
+                <div class="dropdown" style="float:right; white-space: nowrap; margin-right:1%" >
+                    <a class="dropdown-toggle tri" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none; color:black;">Genre <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% for g in form.genre %}
+                            <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idG={{g.idGenre}}">{{g.libelleG}}</a></li>
+                            {% endfor %}
+                    </div>
+                </div>  
+                <div class="dropdown" style="float:right; white-space: nowrap; margin-right:4%" >
+                    <a class="dropdown-toggle tri" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none; color:black;">Trier par <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue">Dernières nouveautés</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=1">Ordre alphabétique</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=2">Date de sortie</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=3">Prix décroissant</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=4">Prix croissant</a></li>
+                        <li><a class="dropdown-item dropdownMarge" href="index.php?page=catalogue&idTri=5">Disponibilité</a></li>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <center>
+                <h3 style='background-color:white;padding:8px;width:50%;border-style:solid;border-color:black'> Le livre/genre que vous cherchez n'existe pas </h3>
+                <a style="text-decoration:none;" href="index.php?page=catalogue"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        </form> 
+    {% endif %}
+{% endblock %}

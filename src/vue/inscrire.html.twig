@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Inscription {% endblock %}
+{% block contenu %} 
+    {% if form.valide is defined %} 
+        {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal">Inscription réussie</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Voici votre identifiant : {{form.email}}</h1>    
+        {% else %} 
+            <h1 class="h3 mb-3 font-weight-normal">Echec de l'inscription</h1> 
+            <h1 class="h3 mb-3 font-weight-normal">Erreur : {{form.message}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=inscrire">Retourner sur 
+                    la page d'inscription</a></h1>
+                {% endif %}     
+            {% else %}  
+        <form class="form-signin" action="index.php?page=inscrire" method="post" 
+              enctype="application/x-www-form-urlencoded">
+            <h1 class="h3 mb-3 font-weight-normal">Inscrivez-vous sur Legendarium</h1>
+            <br/>
+            <label for="email" class="sr-only">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+            <br/>
+            <label for="password" class="sr-only">Mot de passe:</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            <br/>
+            <label for="password2" class="sr-only">Mot de passe:</label>
+            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirmation mot de passe" required>
+            <br/>
+            <label for="Nom" class="sr-only">Nom</label>
+            <input type="text" id="Nom" name="Nom" class="form-control" placeholder="Nom" required>
+            <br/>
+            <label for="Prenom" class="sr-only">Prenom</label>
+            <input type="text" id="Prenom" name="Prenom" class="form-control" placeholder="Prenom" required>
+            <br/>
+            <label for="dateNaiss" class="sr-only">DateNaiss</label>
+            <input type="date" id="dateNaiss" name="dateNaiss" class="form-control"  placeholder="Date Naissance" required>
+            <br/>
+            <center>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="btInscrire">S'inscrire</button>
+            </center>
+        </form>
+    {% endif %}  
+{% endblock %} 

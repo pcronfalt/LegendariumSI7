@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Vos réservations {% endblock %}
+{% block contenu %} 
+    {% if form.idUti == session.idUtilisateur %}
+        {% if form.reservation is defined %}
+            {% if form.reservation != null %}
+                <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans vos réservations {{session.prenom}} {{session.nom}}</h2>
+                <hr style="width:97%;margin-left: 0%"/><br/>
+                {% if form.valide is defined %} 
+                    {% if form.valide == true %}
+                        <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+                    {% else %}
+                    {% endif %}
+                {% endif %}
+                {% for l in form.mesRes %}
+                    {% if l.idU == form.idUti %}
+                        <form  class="form-signin" action="index.php?page=mesReservations&idU={{session.idUtilisateur}}" method="post" enctype="multipart/form-data">
+                            <center>
+                                <div class="livreReserve">
+                                    {# <a href="index.php?page=livreSelec&idLivre={{l.idLivre}}" style="text-decoration:none;">#}
+                                    {% if l.couverture is not empty %}
+                                        <center>
+                                            <img class="img-responsive" src="images/{{l.couverture}}" alt="image du produit" width="350" height="500" style="margin-top:20px; border: solid 2px"/>
+                                        </center>
+                                    {% endif %}
+                                    <div class="media-body">
+                                        <h2>{{l.titre}}</h2>
+                                        <h3>{{l.prenomA}} {{l.nomA}}</h3>
+                                        <h3>{{l.libelleG}} - {{l.libelleC}}</h3>
+                                        <h3>Prix : {{l.prix}}€</h3>
+                                        <div class="resume">
+                                            <h5> {{l.resume}}</h5>
+                                        </div>
+                                    </div>
+                                    <br/><br/>
+                                    {#</a>#}
+                                </div>
+                                <center>
+                                    <h3 style="background-color: white; padding:10px; width:50%; border-style:solid; border-width:2px"> Votre numéro de réservation est le <br/>{{l.idRes}} <br/> Il vous servira à retirer le livre en magasin. </h3>
+                                </center>
+                                <input value="{{l.idRes}}" type="hidden" id="idRes" name="idRes" required autofocus>
+                                <input value="{{l.idLivre}}" type="hidden" id="idLivre" name="idLivre" required autofocus>
+                                <button class='btnRes' type="submit" name="btSupprimer" ><h6 style='width:100%'>Supprimer ce livre</h6></button>
+                            </center>
+                        </form>
+                    {% endif %}
+                {% endfor %}            
+                <br/><br/>
+            {% else %} 
+                <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+                <h1 class="h3 mb-3 font-weight-normal"><a href="index.php">Retour</a></h1>
+            {% endif %}
+        {% else %}    
+            <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans vos réservations {{session.prenom}} {{session.nom}}</h2>
+            <hr style="width:97%;margin-left: 0%"/><br/>
+            {{form.message}}
+            <center>
+                <h2 style='width: 80%; border-style:solid'> Vous n'avez pas encore réservé de livre.<br/>Vous pouvez réserver des livres dans le catalogue</h2>
+                <a href='index.php?page=catalogue' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Aller au catalogue</h3></a>
+            </center>
+        {% endif %} 
+    {% else %}
+        <h1 class="alert alert-danger" role="alert">Vous vous êtes perdu? :(</h1> 
+        <center>
+            <a style="text-decoration:none" href="index.php"><h6 style='width:20%'>Retour a l'acceuil</h6></a>
+        </center>
+    {% endif %}
+{% endblock %}

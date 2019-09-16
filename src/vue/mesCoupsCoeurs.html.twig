@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Vos coups de coeurs {% endblock %}
+{% block contenu %} 
+    {% if form.idUti == session.idUtilisateur %}
+        {% if form.coeur is defined %}
+            {% if form.coeur != null %}
+                <form  class="form-signin" action="index.php?page=mesCoupsCoeurs&idU={{session.idUtilisateur}}" method="post" enctype="multipart/form-data">
+                    <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans vos coups de coeurs {{session.prenom}} {{session.nom}}</h2>
+                    <hr style="width:97%;margin-left: 0%"/><br/>
+                    {% if form.valide is defined %} 
+                        {% if form.valide == true %}
+                            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+                        {% endif %}
+                    {% endif %}
+                    {% for l in form.mesCc %}
+                        {% if l.idU == form.idUti %}
+                            <center>
+                                <div class="livreReserve">
+                                    {% if l.couverture is not empty %}
+                                        <center>
+                                            <img class="img-responsive" src="images/{{l.couverture}}" alt="image du produit" width="350" height="500" style="margin-top:20px; border:solid 2px"/>
+                                        </center>
+                                    {% endif %}
+                                    <div class="media-body">
+                                        <h2>{{l.titre}}</h2>
+                                        <h3>{{l.prenomA}} {{l.nomA}}</h3>
+                                        <h3>{{l.libelleG}} - {{l.libelleC}}</h3>
+                                        <h3>Prix : {{l.prix}}€</h3>
+                                        {% if l.idDispo == 2 %}
+                                            <h3>Disponibilité : <h4 style="background-color:{{ l.codeCouleur }}; width:26%"> {{l.libelleD}}<br/> {{l.nbLivreDispo}} livre(s) restant(s)</h4></h3>
+                                        {% else %}
+                                            <h3>Disponibilité : <h4 style="background-color:{{ l.codeCouleur }}"> {{l.libelleD}}</h4></h3>
+                                        {% endif %}
+                                        {% if l.idDispo != 3 %}
+                                            {% if session.login is defined %}
+                                                <a href='index.php?page=livreSelec&idLivre={{l.idLivre}}' style='text-decoration:none'><h6 style='width:40%'> Réserver ce livre </h6></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <br/><br/>
+                                </div>
+                                <input value="{{l.idCc}}" type="hidden" id="idRes" name="idCc" required autofocus>
+                                <input value="{{l.idLivre}}" type="hidden" id="idLivre" name="idLivre" required autofocus>
+                                <br/>
+                                <button class='btnRes' type="submit" name="btSupprimer" ><h6 style='width:100%'>Supprimer ce livre</h6></button>
+                            </center>
+                        {% endif %}
+                    {% endfor %}            
+                    <br/><br/>
+                </form>
+            {% endif %} 
+        {% else %} 
+            <h2 style="font-family:CaviarDreams;margin-top:0%;border-radius:5px">Bienvenue dans vos coups de coeurs {{session.prenom}} {{session.nom}}</h2>
+            <hr style="width:97%;margin-left: 0%"/><br/>
+            <center>
+                <h2 style='width: 80%; border-style:solid'> Vous n'avez pas encore de coups de coeurs.<br/>Vous pouvez rajouter des coups de coeurs à partir du catalogue.</h2>
+                <a href='index.php?page=catalogue' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Aller au catalogue</h3></a>
+            </center>
+        {% endif %}
+    {% else %}  
+        <h1 class="alert alert-danger" role="alert">Vous vous êtes perdu? :(</h1> 
+        <center>
+            <a style="text-decoration:none" href="index.php"><h6 style='width:20%'>Retour a l'acceuil</h6></a>
+        </center>
+    {% endif %} 
+{% endblock %}

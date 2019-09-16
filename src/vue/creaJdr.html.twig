@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} MJ {% endblock %}
+{% block contenu %}
+    {% if form.age >= 16 %}
+        <h1 style="padding:10px; background-color: white; margin-top:0%;border-radius:5px">Bienvenue dans la création de JDR</h1>
+        <hr/>
+        {% if form.valide is defined %}
+            {% if form.valide == false %}
+                <h1 class='alert alert-danger'>{{form.message}}</h1>
+                <center>
+                    <a style="text-decoration:none;" href="index.php?page=indexMj&mj={{session.pseudoJdr}}"><h6 style='width:20%'>Retour</h6></a>
+                </center>
+            {% else %}
+                <h1 class='alert alert-success'>{{form.message}}</h1>
+                <center>
+                    <a style="text-decoration:none;" href="index.php?page=indexMj&mj={{session.pseudoJdr}}"><h6 style='width:20%'>Retour</h6></a>
+                </center>
+            {% endif %}
+        {% else %}
+            <div class="panel-body">
+                <h1>Création du JDR</h1>
+                <form  class="form-signin" action="index.php?page=creaJdr" method="post" enctype="multipart/form-data">
+                    <br/>
+                    <h2 style="border: solid 2px">Informations du JDR</h2>
+                    <h3 style='text-align:left; font-size:16px'>Nom du JDR</h3>
+                    <label for="nomJeu" class="sr-only">nomJeu:</label>
+                    <input type="text" id="nomJeu" name="nomJeu" class="form-control" placeholder="Saisir le nom du jeu" required autofocus>
+                    <h3 style='text-align:left; font-size:16px'>Durée moyenne par session (en minutes)</h3>
+                    <label for="dureeSess" class="sr-only">dureeSess:</label>
+                    <input type="number" id="dureeSess" name="dureeSess" class="form-control" placeholder="Saisir la durée des sessions" required autofocus>
+                    <h3 style='text-align:left; font-size:16px'>Description du JDR</h3>
+                    <label for="descJeu" class="sr-only">descJeu:</label>
+                    <textarea type="text" id="descJeu" name="descJeu" class="form-control" placeholder="Saisir la description de votre JDR" style="resize:vertical; font-size:20px" required autofocus></textarea>
+                    <h3 style='text-align:left; font-size:16px'>Règles du JDR</h3>
+                    <label for="regleJeu" class="sr-only">regleJeu:</label>
+                    <textarea type="text" id="regleJeu" name="regleJeu" class="form-control" placeholder="Saisir les règles du JDR" style="resize:vertical; font-size:20px" required autofocus></textarea>
+                    <h3 style='text-align:left; font-size:16px'>Illustration</h3>
+                    <label  for="illustration"  class="sr-only">Photo  :</label><input  type="file"  name="illustration"  id="illustration" class="form-control"/>
+                    <br/>
+                    <h2 style="border: solid 2px">Informations du MJ</h2>
+                    <h3 style='text-align:left; font-size:16px'>Numéro de téléphone</h3>
+                    <label for="telMj" class="sr-only">telMj:</label>
+                    <input type="text" id="telMj" name="telMj" class="form-control" placeholder="Saissez votre numéro de téléphone" required autofocus>
+                    <h3 style='text-align:left; font-size:16px'>Synopsis</h3>
+                    <label for="syno" class="sr-only">syno:</label>
+                    <textarea type="text" id="syno" name="syno" class="form-control" placeholder="Saissez le synopsis de votre JDR" style="resize:vertical; font-size:20px" required autofocus></textarea>
+                    <h3 style='text-align:left; font-size:16px'>Fournissez vous le JDR?</h3>
+                    <select class="form-control" name="fournis">                  
+                        <option value='1'>Oui</option>   
+                        <option value='0'>Non</option> 
+                    </select>
+                    <h3 style='text-align:left; font-size:16px'>Date de commencement</h3>
+                    <label for="date" class="sr-only">telMj:</label>
+                    <input type="date" id="date" name="date" class="form-control" placeholder="Saissez la date du JDR" required autofocus>
+                    <input type="hidden" class="form-control" name="email" value="{{session.login}}" required autofocus>
+                    <input type="hidden" class="form-control" name="pseudo" value="{{session.pseudoJdr}}" required autofocus>
+                    <br/>
+                    <center>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btCr">Créer</button>
+                    </center>
+                </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <center>
+            <h2 style='width: 80%; border-style:solid'> Vous n'avez pas 16 ans</h2>
+            <a href='index.php?' style='text-decoration: none'><h3 style='padding:10px;width: 25%;background-color: grey; border-style:solid'>Accueil</h3></a>
+        </center>
+        }
+    {% endif %}
+{% endblock %} 

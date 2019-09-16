@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Modifier un genre {% endblock %}
+{% block contenu %} 
+    {% if form.genre is defined %} 
+        {% if form.genre != null %}
+
+            <form class="form-signin" action="index.php?page=modifGenre" method="post"enctype="multipart/form-data">
+
+                <h1 class="h3 mb-3 font-weight-normal">Modifier un genre</h1>
+                <label for="id" class="sr-only"> id:</label>
+                <input type="hidden" id="id" name="idGenre" value="{{form.genre.idGenre}}"/>
+                <h3 style='text-align:left; font-size:16px'>Genre du livre:</h3>
+                <label for="libelleG" class="sr-only">libelleG:</label>
+                <input value="{{form.genre.libelleG}}" type="text" id="libelleG" name="libelleG" class="form-control" placeholder="Saisir le genre" required autofocus>
+                <br/>
+                <center>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                </center>
+            </form> 
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=genreA">Retourner sur la gestion des genres</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none" href="javascript:history.go(-2)" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=genreA">Retourner sur la gestion des genres</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %}

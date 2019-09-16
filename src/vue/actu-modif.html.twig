@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Modifier une actualité {% endblock %}
+{% block contenu %} 
+    {% if form.actualite is defined %} 
+        {% if form.actualite != null %}
+            <form class="form-signin" action="index.php?page=modifActualite" method="post"enctype="multipart/form-data">
+                <h1 class="h3 mb-3 font-weight-normal">Modifier une actualité</h1>
+                <label for="idActu" class="sr-only"> idActu:</label>
+                <input type="hidden" id="idActu" name="idActu" value="{{form.actualite.idActu}}"/>
+                <h3 style='text-align:left; font-size:16px'>Évènement:</h3>
+                <label for="titre" class="sr-only">titre:</label>
+                <input value="{{form.actualite.titre}}" type="text" id="titre" name="titre" class="form-control" placeholder="Saisir le titre" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Contenu de l'évènement:</h3>
+                <label for="contenu" class="sr-only">Contenu:</label>
+                <input value="{{form.actualite.contenu}}" type="text" id="contenu" name="contenu" class="form-control" placeholder="Saisir le contenu" required autofocus>
+                <h3 style='text-align:left; font-size:16px'>Date de l'évènement:</h3>
+                <label for="date" class="sr-only">Date:</label>
+                <input value="{{form.actualite.date}}" type="date" id="date" name="date" class="form-control" placeholder="Saisir la date" required autofocus>  
+                <h3 style='text-align:left; font-size:16px'>Photo de l'évènement:</h3>
+                <label  for="photo"  class="sr-only">Photo  :</label><input  type="file"  name="photo"  id="photo"class="form-control"/>
+                <input value="{{form.actualite.photo}}" type="hidden" id="photo" name="photoBd" required autofocus>
+                <br/>
+                <center>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                </center>
+            </form> 
+        {% else %} 
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=actualiteA">Retourner sur la gestion des actualités</a></h1>
+        {% endif %}     
+    {% else %}  
+        {% if form.valide == true %}
+            <h1 class="alert alert-success" role="alert">{{ form.message }} </h1>
+            <center>
+                <a style="text-decoration:none" href="javascript:history.go(-2)" class="retourA"><h6 style='width:20%'>Retour</h6></a>
+            </center>
+        {% else %}    
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1> 
+            <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=actualiteA">Retourner sur la gestion des actualités</a></h1>
+        {% endif %} 
+    {% endif %}
+{% endblock %} 
