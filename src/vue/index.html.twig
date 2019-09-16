@@ -1,0 +1,89 @@
+{% extends "base.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  Accueil
+{% endblock %}
+
+{% block contenu %}
+
+  <div class="container " >
+<div class="textcenter">
+
+    <h4 id="borderimg5" style="padding:1rem 1rem;">Messages de bienvenue sur legendarium</h4>
+
+
+
+  <p>Message de bienvenue</p>
+
+</div>
+<hr/>
+    <h4 style="padding:1em">Nos Nouveautés</h4>
+{%  if liste %}
+    <div class="testimonial-section">
+      <div class="inner-width">
+        <div class="slides owl-carousel">
+          {% for l in liste %} <a href="index.php?page=livre&id={{ l.id }}">
+            <div class="testimonial">
+              <img src="{{ l.couverture }}" width="auto" height="100%">
+            </div>
+          </a>
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+    <hr/>
+    {% else %}
+      <h4 class="textcenter">Pas de livre</h4>
+  <hr/>
+  {% endif %}
+
+    <h4 style="padding:1em">Nos coup de coeur</h4>
+{%  if liste %}
+
+    <div class="testimonial-section">
+      <div class="inner-width">
+        <div class="slides owl-carousel">
+          {% for l in liste %}
+           {%  if l.idcoupdecoeur == 1 %}
+
+            <a href="index.php?page=livre&id={{ l.id }}">
+              <div class="testimonial">
+                <img src="{{ l.couverture }}" width="auto" height="100%">
+              </div>
+            </a>
+            {% endif %}
+
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+      <hr/>
+    {% else %}
+      <h4 class="textcenter">Pas de livre</h4>
+<hr/>
+  {% endif %}
+
+
+    <script type="text/javascript">
+      $(".owl-carousel").owlCarousel({
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          680: {
+            items: 2
+          },
+          960: {
+            items: 3
+          }
+        }
+      });
+    </script>
+
+  </div>
+
+{% endblock %}

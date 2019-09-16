@@ -1,0 +1,174 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  ajout livre
+{% endblock %}
+
+{% block contenu %}
+{% if form.valide is defined %}
+  {% if form.valide == true %}
+    <div class="container-fluid" style="padding: 5rem">
+      <div class="row">
+        <div class="container " id="borderimg3" style="padding: 5rem">
+
+          <form class="textcenter" action="index.php?page=ajoutlivre" method="post" style="width: 100%;">
+            <h2 class="textcenter">Livre ajouté avec success</h2>
+          </div>
+          <div class="container-fluid textcenter">
+
+            <button type="submit" class="btnsingin" name="button">Ajouter un autre livre</button>
+            <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminlivre">Retour a la liste des livre</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="container-fluid" style="padding: 5rem">
+      <div class="row">
+        <div class="container " id="borderimg3" style="padding: 5rem">
+
+          <form class="textcenter" action="index.php?page=ajoutlivre" method="post" style="width: 100%;">
+            <h2 class="textcenter" style="color: #ff6b6b">Problème Ajout Livre !</h2>
+
+          </div>
+          <div class="container-fluid textcenter">
+
+            <button type="submit" class="btnsingin" name="button">Essayez a nouveau l'ajout du livre</button>
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+
+
+    <div class="container-fluid" style="padding: 5rem">
+      <div class="row">
+        <div class="container " id="borderimg3" style="padding: 5rem">
+          <h2>Ajouter un livre</h2>
+          <br/>
+          <form class="form-signin" action="index.php?page=ajoutlivre" method="post" enctype="application/x-www-formurlencoded">
+
+            <div class="form-row">
+              <label for="inputCouverture ">Couverture :</label>
+              <input class="form-control" type="text" name="inputCouverture" placeholder="Saisir l'URL de la couverture" id="inputCouverture" required="required" autofocus="autofocus">
+              <span ></span>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col">
+                <label for="inputTitre">Titre :</label>
+                <input class="form-control" type="text" name="inputTitre" placeholder="Saisir le titre du livre" id="inputTitre" required="required" autofocus="autofocus">
+                <span ></span>
+              </div>
+
+              <div class="col">
+                <label for="inputIdauteur ">Auteur :</label>
+                <select name="inputIdauteur" id="inputIdauteur" class="form-control" required="required" autofocus="autofocus">
+                  <option selected="selected">Choose...</option>
+                  {% for a in listea %}
+                    <option value="{{ a.idauteur }}">{{ a.nomauteur }}.{{ a.prenomauteur }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col">
+                <label for="inputIdediteur ">Editeur :</label>
+                <select name="inputIdediteur" id="inputIdediteur" class="form-control" required="required" autofocus="autofocus">
+                  <option selected="selected">Choose...</option>
+                  {% for e in listee %}
+                    <option value="{{ e.idediteur }}">{{ e.nomediteur }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col">
+                <label for="inputDatelivre ">Date du livre:</label>
+                <input class="form-control" type="date" name="inputDatelivre" placeholder="Saisir la date de sortie du livre" id="inputDatelivre" required="required" autofocus="autofocus">
+                <span ></span>
+              </div>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col">
+                <label for="inputIsbn ">ISBN :</label>
+                <input class="form-control" type="text" name="inputIsbn" placeholder="Saisir l'ISBN du livre" id="inputIsbn" required="required" autofocus="autofocus">
+                <span ></span>
+              </div>
+
+              <div class="col">
+                <label for="inputPrix ">Prix :</label>
+                <input class="form-control" type="number" name="inputPrix" placeholder="Saisir le prix" id="inputPrix" required="required" autofocus="autofocus">
+
+                <span ></span>
+              </div>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col">
+                <label for="inputIddisponibilite ">Disponibilité:</label>
+                <select name="inputIddisponibilite" id="inputIddisponibilite" class="form-control" required="required" autofocus="autofocus">
+                  <option selected="selected">Choose...</option>
+                  {% for d in listed %}
+                    <option value="{{ d.iddisponibilite }}">{{ d.libelledisponibilite }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col">
+                <label for="inputIdcollection ">Collection :</label>
+                <select name="inputIdcollection" id="inputIdcollection" class="form-control" required="required" autofocus="autofocus">
+                  <option selected="selected">Choose...</option>
+                  {% for c in listec %}
+                    <option value="{{ c.idcollection}}">{{ c.libellecollection }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="col">
+                <label for="inputIdgenre ">Genre :</label>
+                <select name="inputIdgenre" id="inputIdgenre" class="form-control" required="required" autofocus="autofocus">
+                  <option selected="selected">Choose...</option>
+                  {% for g in listeg %}
+                    <option value="{{ g.idgenre}}">{{ g.libellegenre }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col">
+
+                <label for="inputIdcoupdecoeur">Coup de coeur :</label>
+                <select name="inputIdcoupdecoeur" id="inputIdcoupdecoeur" class="form-control">
+                  <option selected="selected">Choose...</option>
+                  {% for cdc in listecdc %}
+                    <option value="{{ cdc.idcoupdecoeur}}">{{ cdc.libellecoupdecoeur }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="form-row">
+
+              <label for="exampleFormControlTextarea1">Résumer :</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Saisir le résumer du livre"></textarea>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="btAjouter">Ajouter</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet">
+{% endblock %}
+{% block title %}
+  {{ parent() }}
+  Gestion rôles
+{% endblock %}
+
+{% block contenu %}
+
+  {% if form.role is defined %}
+    {% if form.role != null %}
+
+      <div class="center-block col-md-10" style="float:none">
+
+        <h1>Gestion du role :
+          <span class="badge badge-bleu" style="font-size: 100%">{{form.role.libelle}}</span></h1>
+
+        <br/>
+
+        <form class="form-signin" action="index.php?page=modifrole" method="post" enctype="application/x-www-formurlencoded">
+
+          <label for="inputId" class="sr-only">id:</label>
+
+          <div class="wrap-input100 validate-input">
+            <label for="inputLibelle" class="sr-only">Modifier le libelle:</label>
+            <input class="input100" type="text" name="inputLibelle" placeholder="Créez un nouveau libelle " id="inputLibelle" required="required">
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="container-contact100-form-btn ">
+            <input type="hidden" name="id" value="{{ form.role.id }}"/>
+            <button class="custom100-form-btn" type="submit" name="btModifier">Modifier</button>
+          </div>
+        </form>
+
+      </div>
+    {% else %}
+      <div class="container-contact100-form-btn ">
+        <div class="erreur100-form-btn">
+          <strong>Erreur ! form.role == null
+          </strong>&nbsp;&nbsp;&nbsp;{{ form.message }}
+          1</div>
+      </div>
+      <div class="container-contact100-form-btn ">
+        <a class="custom100-form-btn" href="index.php?page=role">Retourner sur la liste des rôles</a>
+      </div>
+    {% endif %}
+  {% else %}
+
+    {% if form.valide == true %}
+      <div class="container-contact100-form-btn ">
+        <div class="valide100-form-btn">
+          <strong>{{ form.message }}</strong>
+        </div>
+      </div>
+      <div class="container-contact100-form-btn ">
+        <a class="custom100-form-btn" href="index.php?page=role">Retourner sur la liste des rôles</a>
+      </div>
+
+    {% else %}
+      <!-- mdp diff-->
+      <div class="container-contact100-form-btn ">
+        <div class="erreur100-form-btn">
+          <strong>Erreur ! form.valide == false</strong>&nbsp;&nbsp;&nbsp;{{ form.message }}
+        </div>
+      </div>
+      <div class="container-contact100-form-btn ">
+        <a class="custom100-form-btn" href="index.php?page=role">Retourner sur la liste des rôles</a>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endblock %}

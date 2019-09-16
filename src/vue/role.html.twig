@@ -1,0 +1,72 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet">
+{% endblock %}
+{% block title %}
+  {{ parent() }}
+  Rôle
+{% endblock %}
+
+{% block contenu %}
+
+  <div class="center-block col-md-10" style="float:none">
+
+    <h1 >
+      Gestion des Rôle
+    </h1>
+    <br/>
+    <div class="panel panel-custom" style="color: #34495e;">
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-hover table-striped ">
+
+          <tr style="background-color: #4aa3df;">
+            <th>Libellé</th>
+            <th></th>
+            <th></th>
+          </tr>
+
+          {% for r in liste %}
+            <tr>
+              <td value="{{ r.id }}">{{ r.libelle }}</td>
+              <td>
+                <div class="btn-group btn-group-lg">
+                  <a href="index.php?page=modifrole&id={{ r.id }}">
+                    <i class="fas fa-pen"></i>
+                  </a>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group btn-group-lg">
+                  <a href="#">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+
+          {% endfor %}
+
+        </table>
+      </div>
+    </div>
+    <div class="panel panel-custom">
+      <div class="panel-heading">Ajouter un Rôle
+      </div>
+      <div class="panel-body">
+        <form class="form-signin" action="index.php?page=role" method="post" enctype="application/x-www-formurlencoded">
+          <div class="wrap-input100 validate-input">
+            <label for="inputLibelle" class="sr-only">Libellé:</label>
+            <input class="input100" type="text" name="inputLibelle" placeholder="Saisir un libelle" id="inputLibelle" required="required" autofocus="autofocus">
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="container-contact100-form-btn ">
+
+            <button class="custom100-form-btn" type="submit" name="btAjouter">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

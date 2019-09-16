@@ -1,0 +1,86 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  modif collection
+{% endblock %}
+
+{% block contenu %}
+{% if form.collection is defined %}
+  {% if form.collection != null %}
+
+  <div class="container-fluid"style="padding: 5rem">
+    <div class="row" >
+      <div class="container" id="borderimg3" style="padding: 5rem">
+        <h4>Modifier La collection : "<font style="font-style: italic; font-weight: bold;">{{ form.collection.libellecollection }} </font>  "</h4>
+        <br/>
+        <form class="form-signin" action="index.php?page=modifcollection" method="post" enctype="application/x-www-formurlencoded">
+          <div class="form-row">
+            <label for="inputLibellecollection ">Collection :</label>
+            <input class="form-control" type="text" name="inputLibellecollection" placeholder="Saisir le nom de la nouvelle collection" id="inputLibellecollection" value="{{ form.collection.libellecollection }}" required="required" autofocus="autofocus">
+            <span ></span>
+
+          </div>
+
+        </div>
+        <div class="container-fluid textcenter">
+            <input type="hidden" name="idcollection" value="{{ form.collection.idcollection }}"/>
+          <button type="submit" class="btnsingin" name="btModifier">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter" method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=admincollection">Retour a la liste des collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endif %}
+{% else %}
+
+  {% if form.valide == true %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=admincollection">Retour a la liste des collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=admincollection">Retour a la liste des collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

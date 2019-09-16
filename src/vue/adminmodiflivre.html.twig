@@ -1,0 +1,208 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  modif livre
+{% endblock %}
+
+{% block contenu %}
+{% if form.livre is defined %}
+  {% if form.livre != null %}
+
+  <div class="container-fluid"style="padding: 5rem">
+    <div class="row" >
+      <div class="container" id="borderimg3" style="padding: 5rem">
+        <h4>Modifier Le livre : "<font style="font-style: italic; font-weight: bold;">{{ form.livre.libellegenre }} </font>  "</h4>
+        <br/>
+        <form class="form-signin" action="index.php?page=modifgenre" method="post" enctype="application/x-www-formurlencoded">
+
+          <div class="form-row">
+            <label for="inputCouverture ">Couverture :</label>
+            <input class="form-control" type="text" name="inputCouverture" placeholder="Saisir l'URL de la couverture" id="inputCouverture" value="{{ form.genre.libellegenre }}" required="required" autofocus="autofocus">
+            <span ></span>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <label for="inputTitre">Titre :</label>
+              <input class="form-control" type="text" name="inputTitre" placeholder="Saisir le titre du livre" id="inputTitre" value="{{ form.genre.libellegenre }}" required="required" autofocus="autofocus">
+              <span ></span>
+            </div>
+
+            <div class="col">
+              <label for="inputAuteur ">Auteur :</label>
+              <select name="inputAuteur" id="inputAuteur" class="form-control" required="required" autofocus="autofocus">
+                
+                {% for a in listea %}
+                {% if a.idauteur == form.auteur.idauteur %}
+                  <option value="{{ a.idauteur }}" selected="selected">{{ a.nomauteur }}.{{ a.prenomauteur }}</option>
+                {% else %}
+                  <option value="{{ a.idauteur }}">{{ a.nomauteur }}.{{ a.prenomauteur }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <label for="inputEditeur ">Editeur :</label>
+              <select name="inputEditeur" id="inputEditeur" class="form-control" required="required" autofocus="autofocus">
+
+                {% for e in listee %}
+                {% if e.idediteur == form.editeur.idediteur %}
+                  <option value="{{ e.idediteur }}" selected="selected">{{ e.nomediteur }}</option>
+                {% else %}
+                  <option value="{{ e.idediteur }}">{{ e.nomediteur }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col">
+              <label for="inputDatelivre ">Date du livre:</label>
+              <input class="form-control" type="date" name="inputDatelivre" placeholder="Saisir la date de sortie du livre" id="inputDatelivre" value="{{ form.genre.libellegenre }}" required="required" autofocus="autofocus">
+              <span ></span>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <label for="inputIsbn ">ISBN :</label>
+              <input class="form-control" type="text" name="inputIsbn" placeholder="Saisir l'ISBN du livre" id="inputIsbn" value="{{ form.genre.libellegenre }}" required="required" autofocus="autofocus">
+              <span ></span>
+            </div>
+
+            <div class="col">
+              <label for="inputPrix ">Prix :</label>
+              <input class="form-control" type="number" name="inputPrix" placeholder="Saisir le prix" id="inputPrix" value="{{ form.genre.libellegenre }}" required="required" autofocus="autofocus">
+
+              <span ></span>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <label for="inputDisponibilite ">Disponibilité:</label>
+              <select name="inputDisponibilite" id="inputDisponibilite" class="form-control" required="required" autofocus="autofocus">
+
+                {% for d in listed %}
+                {% if d.iddisponibilite == form.disponibilite.iddisponibilite %}
+                  <option value="{{ d.iddisponibilite }}" selected="selected">{{ d.libelledisponibilite }}</option>
+                {% else %}
+                  <option value="{{ d.iddisponibilite }}">{{ d.libelledisponibilite }}</option>
+                {% endif %}
+
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+              <label for="inputCollection ">Collection :</label>
+              <select name="inputCollectioninputCollection" id="inputCollection" class="form-control" required="required" autofocus="autofocus">
+
+                {% for c in listec %}
+                {% if c.idcollection == form.collection.idcollection %}
+                  <option value="{{ c.idcollection }}" selected="selected">{{ c.libellecollection }}</option>
+                {% else %}
+                  <option value="{{ c.idcollection }}">{{ c.libellecollection }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+            <div class="col">
+              <label for="inputGenre ">Genre :</label>
+              <select name="inputGenre" id="inputGenre" class="form-control" required="required" autofocus="autofocus">
+
+                {% for g in listeg %}
+                   {% if g.idgenre == form.genre.idgenre %}
+                     <option value="{{ g.idgenre}}" selected="selected">{{ g.libellegenre }}</option>
+                   {% else %}
+                     <option value="{{ g.idgenre}}">{{ g.libellegenre }}</option>
+                   {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col">
+
+              <label for="inputCoupdecoeur">Coup de coeur :</label>
+              <select name="inputCoupdecoeur" id="inputCoupdecoeur" class="form-control">
+                <option selected="selected">Choose...</option>
+                <option value="1">Coup de coeur</option>
+                <option value="2">Pas notre coup de coeur</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="form-row">
+
+            <label for="inputResume">Résumer :</label>
+            <textarea class="form-control" name="inputResume" id="inputResume" value="{{ form.livre.resume }}" rows="5" placeholder="Saisir le résumer du livre"></textarea>
+
+          </div>
+
+
+        </div>
+        <div class="container-fluid textcenter">
+            <input type="hidden" name="id" value="{{ form.livre.id }}"/>
+          <button type="submit" class="btnsingin" name="btModifier">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter" method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminlivre">Retour a la liste des livre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endif %}
+{% else %}
+
+  {% if form.valide == true %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminlivre">Retour a la liste des livre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminlivre">Retour a la liste des livre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

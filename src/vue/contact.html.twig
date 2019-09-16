@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  {{ parent() }}
+  Contact
+{% endblock %}
+
+{% block contenu %}
+  <div style="padding:2em">
+
+    <form method="post">
+
+      <h4 >Formulaire de contact</h4>
+
+      <hr/>
+
+      <h3>Laissez-nous un message</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" name="txtName" class="form-control" placeholder="Votre nom *" value="" required="required" focus="focus"/>
+          </div>
+          <div class="form-group">
+            <input type="email" name="txtEmail" class="form-control" placeholder="Votre email*" value="" required="required" focus="focus"/>
+          </div>
+          <div class="form-group">
+
+            <select class="custom-select" name="txtObject" required="required" focus="focus">
+              <option selected="selected">Object</option>
+              <option value="1">Problème inscription</option>
+              <option value="2">Problème connextion</option>
+              <option value="3">Problème réservation</option>
+              <option value="4">Problème d'affichage</option>
+              <option value="5">Demande de jeux de rôle</option>
+              <option value="6">Demande d'information</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="tel" name="txtPhone" class="form-control" placeholder="Votre numéro de téléphone (facultatif)" value=""/>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <textarea name="txtMsg" class="form-control" placeholder="Votre message *" style="width: 100%; height: 200px;" required="required" focus="focus"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <hr/>
+
+      <input type="submit" name="btnSubmit" class="btn btn-secondary" style="float: right" value="Send Message"/>
+
+    </form>
+  </div>
+{% endblock %}

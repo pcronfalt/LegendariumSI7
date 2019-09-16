@@ -1,0 +1,46 @@
+{# {% extends standalone ? "base.html.twig": "administrationbase.html.twig" %} #}
+{% extends "administrationbase.html.twig" %}
+{% block title %} {{ parent() }} editeur {% endblock %}
+
+{% block contenu %}
+
+<div class="container-fluid" style="margin-top:1em">
+<div class="row" style="padding:1em">
+
+    <h4>Liste des auteur</h4>
+  <a href="#">  <button type="button" name="button" class="btnplus" style="  position: absolute;
+    right: 20px;" >Ajouter</button></a>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Biographie</th>
+      <th scope="col">Modif</th>
+      <th scope="col">Trash</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in liste %}
+
+    <tr>
+      <th scope="row">#{{ a.idauteur }}</th>
+      <td>{{ a.nomauteur }}</td>
+      <td>{{ a.prenomauteur }}</td>
+      <td>{{ a.biographieauteur }}</td>
+      <td><a href="#"><i class="fas fa-edit icon"></i></a></td>
+      <td> <a href="index.php?page=adminauteur&id={{a.idauteur}}"><i class="fas fa-trash icon"></i></a>
+      </td>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  utilisateur
+{% endblock %}
+
+{% block contenu %}
+
+  <div class="container-fluid" style="margin-top:1em">
+
+    <div class="row" style="padding:1em">
+
+      <h4>Liste des utilisateur : Administrateur</h4>
+
+      <div class="table-responsive">
+        <form action="index.php?page=" method="post" enctype="application/x-www-form-urlencoded">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Trash</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for u in liste %}
+                {% if u.id == 1 %}
+                  <tr>
+                    <th scope="row">#</th>
+                    <td>{{ u.nom }}</td>
+                    <td>{{ u.prenom }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                      <a href="#">
+                        <i class="fas fa-edit icon"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        <i class="fas fa-trash icon"></i>
+                      </a>
+                      <label class="checkbox">
+                        <input type="checkbox" name="cocher[]" id="cocher[]" value="1"/>
+                        <span class="default"></span>
+                      </label>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+
+            </tbody>
+          </table>
+          <h4>Liste des utilisateur : Client</h4>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Trash</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for u in liste %}
+                {% if u.id == 2 %}
+                  <tr>
+                    <th scope="row">#</th>
+                    <td>{{ u.nom }}</td>
+                    <td>{{ u.prenom }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                      <a href="#">
+                        <i class="fas fa-edit icon"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        <i class="fas fa-trash icon"></i>
+                      </a>
+                      <label class="checkbox">
+                        <input type="checkbox" name="cocher[]" id="cocher[]" value="1"/>
+                        <span class="default"></span>
+                      </label>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+
+            </tbody>
+          </table>
+          <hr/>
+          <button class="btn btn-mg btn-dark btn-block" type="submit" name="btSupprimer">Supprimer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

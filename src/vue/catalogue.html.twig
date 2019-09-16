@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet">
+{% endblock %}
+{% block title %}
+  {{ parent() }}
+  Produit
+{% endblock %}
+{% block contenu %}
+
+  <div class="container" style="padding: 1rem">
+  
+
+    {%  for c in listecatalogue %}
+
+
+    <h4>Collections : {{ c.libellecollection }}</h4>
+{%  if liste %}
+
+
+
+         <a href="index.php?page=collection">
+           <button type="button" name="button" class="btnplus" style="  position: absolute;
+       right: 20px;">
+             plus</button>
+         </a>
+         <div class="testimonial-section">
+           <div class="inner-width">
+             <div class="slides owl-carousel">
+               {% for l in liste %}
+                 <a href="index.php?page=livre&id={{ l.id }}">
+                   <div class="testimonial">
+                     <img src="{{ l.couverture }}" width="auto" height="100%">
+                   </div>
+                 </a>
+
+
+               {% endfor %}
+             </div>
+           </div>
+         </div>
+
+        <hr/>
+{% else %}
+<h4 class="textcenter">Pas livre dans la collections : {{ c.libellecollection }}</h4>
+<hr/>
+{% endif %}
+
+
+
+    {% else %}
+    <h4 class="textcenter">Pas de Collections</h4>
+    <hr/>
+  {% endfor %}
+
+
+
+
+
+    <script type="text/javascript">
+      $(".owl-carousel").owlCarousel({
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          680: {
+            items: 2
+          },
+          960: {
+            items: 3
+          }
+        }
+      });
+    </script>
+
+    <!-- <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item ">
+          <a class="page-link" href="#">Previous</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav> -->
+  </div>
+
+{% endblock %}

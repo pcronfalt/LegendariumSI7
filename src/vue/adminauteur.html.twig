@@ -1,0 +1,95 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  auteur
+{% endblock %}
+
+{% block contenu %}
+
+  <div class="container-fluid" style="margin-top:1em">
+    <div class="row" style="padding:1em">
+
+
+      <h4>Liste des auteur</h4>
+        {%  if liste %}
+      <a href="index.php?page=ajoutauteur">
+        <button type="button" name="button" class="btnplus" style="  position: absolute;
+    right: 20px;">Ajouter</button>
+      </a>
+      {% endif %}
+      <div class="table-responsive">
+        <form action="index.php?page=adminauteur" method="post" enctype="application/x-www-form-urlencoded">
+
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Biographie</th>
+                <th scope="col">Modif</th>
+                <th scope="col">Trash</th>
+                <th></th>
+                <!-- <th >
+                  <label class="checkbox">
+                    <input type="checkbox"  id="select_all" />
+                    <span class="default"></span>
+                  </label></th > -->
+
+              </tr>
+            </thead>
+
+            <tbody>
+  {%  if liste %}
+              {% for a in liste %}
+
+                <tr>
+                  <th scope="row">#{{ a.idauteur }}</th>
+                  <td>{{ a.nomauteur }}</td>
+                  <td>{{ a.prenomauteur }}</td>
+                  <td>{{ a.biographieauteur }}</td>
+                  <td>
+                    <a href="index.php?page=modifauteur&id={{a.idauteur}}">
+                      <i class="fas fa-edit icon"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="index.php?page=adminauteur&id={{a.idauteur}}">
+                      <i class="fas fa-trash icon"></i>
+                    </a>
+
+                  </td>
+                  <td><label class="checkbox">
+                    <input type="checkbox" name="cocher[]" id="cocher[]" value="{{a.idauteur}}"/>
+                    <span class="default"></span>
+                  </label></td>
+
+                </tr>
+
+              {% endfor %}
+              {% else %}
+              <tr>
+                <th scope="row">#</th>
+                <td>Vide</td>
+                <td>Vide</td>
+                <td>Vide</td>
+                <td>Vide</td>
+                <td>Vide</td>
+                <td></td>
+              </tr>
+              {% endif %}
+            </tbody>
+
+          </table>
+          <hr/>
+          {%  if liste %}
+          <button class="btn btn-mg btn-dark btn-block" type="submit" name="btSupprimer" >Supprimer</button>
+          {% else %}
+          <button style="  width: 100%;" class="btn btn-mg btnplus btn-block" type="submit" name="button"  formaction="index.php?page=ajoutauteur">Ajouter</button>
+
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

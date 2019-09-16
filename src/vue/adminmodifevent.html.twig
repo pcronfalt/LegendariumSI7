@@ -1,0 +1,100 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  modif event
+{% endblock %}
+
+{% block contenu %}
+{% if form.event is defined %}
+  {% if form.event != null %}
+
+  <div class="container-fluid"style="padding: 5rem">
+    <div class="row" >
+      <div class="container" id="borderimg3" style="padding: 5rem">
+        <h4>Modifier L'event : "<font style="font-style: italic; font-weight: bold;">{{ form.event.titre }}</font>  "</h4>
+        <br/>
+        <form class="form-signin" action="index.php?page=modifevent" method="post" enctype="application/x-www-formurlencoded">
+          <div class="form-row">
+            <div class="col">
+            <label for="inputTitre">Titre :</label>
+            <input class="form-control" type="text" name="inputTitre" placeholder="Saisir le nouveau titre de l'event" id="inputTitre" value="{{ form.event.titre }}" required="required" autofocus="autofocus">
+            <span ></span>
+           </div>
+           <div class="col">
+             <label for="inputIllustration" >Illustration :</label>
+             <input class="form-control" type="text" name="inputIllustration" placeholder="Saisir la nouvelle illustration de l'event" id="inputIllustration" value="{{ form.event.illustration }}"required="required" autofocus="autofocus" >
+             <span ></span>
+           </div>
+          </div>
+          <br/>
+
+            <div class="form-row">
+
+              <label for="inputInformation">Information :</label>
+              <textarea class="form-control" type="text" name="inputInformation" placeholder="Saisir la nouvelle information de l'event" id="inputInformation"  required="required" autofocus="autofocus" rows="5">{{ form.event.information }}</textarea>
+<span ></span>
+            </div>
+
+        </div>
+        <div class="container-fluid textcenter">
+            <input type="hidden" name="id" value="{{ form.event.id }}"/>
+          <button type="submit" class="btnsingin" name="btModifier">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminevent">Retour a la liste des event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endif %}
+{% else %}
+
+  {% if form.valide == true %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminevent">Retour a la liste des event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  {% else %}
+  <div class="container-fluid" style="padding: 5rem">
+    <div class="row">
+      <div class="container " id="borderimg3" style="padding: 5rem">
+
+        <form class="textcenter"  method="post" style="width: 100%;">
+          <h2 class="textcenter" style="color: #ff6b6b">{{ form.message }}</h2>
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="button" formaction="index.php?page=adminevent">Retour a la liste des event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+{% block style %}<link href="css/style-signin.css" rel="stylesheet"> {% endblock %}
+{% block title %} {{ parent() }} Profile {% endblock %}
+
+{% block contenu %}
+    <div class="container-fluid ">
+    
+   <div class="row" >
+       
+       
+       
+<div class="center-block col-md-10" style="float:none">
+<h1  >Gestion des utilisateurs </h1>
+<br/>
+ 
+
+ 
+ {% for u in liste %}
+    <div class="col-sm-6 col-md-4">
+           
+<div class="panel panel-custom">
+ <div class="panel-heading " style="color: #34495e;">Utilisateur</div>
+ <div class="panel-body">
+
+
+                <div class="thumbnail rad">
+                    <div class="caption">
+                        <p style="color: #34495e;">Email  : {{u.email}}</p>
+                        <p style="color: #34495e;">Nom    : {{u.nom}}</p>
+                        <p style="color: #34495e;">Prénom : {{u.prenom}}</p>
+                        <p style="color: #34495e;">Rôle   : {{u.libellerole}}</p>
+                        <p><a href="index.php?page=modifutilisateur&email={{u.email}}" class="btn btn-default bt " role="button"><i class="fas fa-pen" ></i></a> 
+                        <a href="#" class="btn btn-default bt" role="button"><i class="fas fa-trash"></i></a></p>
+                    </div>
+                </div>
+  </div>
+ </div>         
+</div>
+
+  {% endfor %} 
+  
+<div class="col-sm-6 col-md-4">
+           
+
+
+
+                <div class="thumbnail rad" style="background-color: #43607c; border: none; height: 20.2em;">
+                    <div class="caption">
+                        <p style="color: #34495e; text-align: center; font-size: 13em; " >+</p>
+                        </div>
+                </div>
+  </div>
+ </div>         
+</div>
+ </div>
+
+  
+  
+{% endblock %} 

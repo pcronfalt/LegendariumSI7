@@ -1,0 +1,71 @@
+{% extends "administrationbase.html.twig" %}
+{% block title %}
+  {{ parent() }}
+  ajout disponibilite
+{% endblock %}
+
+{% block contenu %}
+{% if form.valide is defined %}
+  {% if form.valide == true %}
+    <div class="container-fluid" style="padding: 5rem">
+      <div class="row">
+        <div class="container " id="borderimg3" style="padding: 5rem">
+
+          <form class="textcenter" action="index.php?page=ajoutdisponibilite" method="post" style="width: 100%;">
+            <h2 class="textcenter">Nom de disponibilité ajouté avec success</h2>
+          </div>
+          <div class="container-fluid textcenter">
+
+            <button type="submit" class="btnsingin" name="button">Ajouter un autre nom de disponibilité</button>
+            <button type="submit" class="btnsingin" name="button" formaction="index.php?page=admindisponibilite">Retour a la liste des disponibilité</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="container-fluid" style="padding: 5rem">
+      <div class="row">
+        <div class="container " id="borderimg3" style="padding: 5rem">
+
+          <form class="textcenter" action="index.php?page=ajoutdisponibilite" method="post" style="width: 100%;">
+            <h2 class="textcenter" style="color: #ff6b6b">Problème Ajout Disponibilité !</h2>
+
+          </div>
+          <div class="container-fluid textcenter">
+
+            <button type="submit" class="btnsingin" name="button">Essayez a nouveau l'ajout d'un nom de disponibilité</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+
+<div class="container-fluid" style="padding: 5rem">
+  <div class="row">
+    <div class="container " id="borderimg3" style="padding: 5rem">
+        <h4>Ajouter une disponibilité</h4>
+        <br/>
+        <form class="form-signin" action="index.php?page=ajoutdisponibilite" method="post" enctype="application/x-www-formurlencoded">
+
+
+          <div class="form-row">
+            <label for="inputLibelle" >Disponibilité :</label>
+            <input class="form-control" type="text" name="inputLibelle" placeholder="Saisir le nom de la disponibilité" id="inputLibelle" required="required" autofocus="autofocus">
+            <span ></span>
+          </div>
+
+
+        </div>
+        <div class="container-fluid textcenter">
+
+          <button type="submit" class="btnsingin" name="btAjouter">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    {% endif %}
+{% endblock %}
